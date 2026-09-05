@@ -1,60 +1,51 @@
-import { ArrowRight, BookOpen, Clock3, GraduationCap } from "lucide-react";
+import { Clock, ArrowRight, GraduationCap } from "lucide-react";
 
 const CourseCard = ({ course, onViewDetails }) => {
-  const categoryName =
-    typeof course.categoryId === "object"
-      ? course.categoryId?.name
-      : "Education";
-
   return (
-    <article className="course-card">
-      <div className="course-card-image-wrapper">
+    <div className="course-card">
+      <div className="course-card-image">
         {course.imageUrl ? (
-          <img
-            src={course.imageUrl}
-            alt={course.courseName}
-            className="course-card-image"
-          />
+          <img src={course.imageUrl} alt={course.courseName} />
         ) : (
-          <div className="course-card-image-placeholder">
+          <div className="course-image-placeholder">
             <GraduationCap size={42} />
           </div>
         )}
-        <span className="course-degree-badge">{course.degreeType || "UG"}</span>
+
+        <span className="course-degree-badge">{course.degreeType}</span>
       </div>
 
       <div className="course-card-content">
-        <div className="course-card-category">
-          <BookOpen size={15} />
-          <span>{categoryName || "Education"}</span>
+        <div className="course-category">
+          {course.categoryId?.name || "Education"}
         </div>
 
         <h3>{course.courseName}</h3>
 
-        <p>
+        <p className="course-description">
           {course.shortDescription ||
             course.description ||
-            "Explore this course and discover the opportunities it can offer."}
+            "Explore this course and discover the opportunities it offers."}
         </p>
 
-        <div className="course-card-meta">
-          <div>
-            <Clock3 size={16} />
-            <span>{course.duration || "Duration varies"}</span>
-          </div>
-          <span className="course-code">{course.courseCode}</span>
+        <div className="course-info">
+          <span>
+            <Clock size={16} />
+            {course.duration}
+          </span>
+
+          <span>{course.courseCode}</span>
         </div>
 
         <button
-          type="button"
-          className="course-view-button"
+          className="course-details-button"
           onClick={() => onViewDetails(course._id)}
         >
-          <span>View Course</span>
+          View Course
           <ArrowRight size={17} />
         </button>
       </div>
-    </article>
+    </div>
   );
 };
 

@@ -1,5 +1,3 @@
-// import React from "react";
-
 import { NavLink } from "react-router-dom";
 
 import { ChevronDown, Search, Bell, GraduationCap } from "lucide-react";
@@ -9,7 +7,7 @@ import "./Navbar.css";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      {/* Logo */}
+      {/* ==================== LOGO ==================== */}
       <NavLink to="/" className="logo-section">
         <div className="logo-icon">
           <GraduationCap size={34} />
@@ -21,8 +19,9 @@ const Navbar = () => {
         </div>
       </NavLink>
 
-      {/* Navigation */}
+      {/* ==================== NAVIGATION ==================== */}
       <div className="nav-links">
+        {/* Home */}
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -32,6 +31,7 @@ const Navbar = () => {
           Home
         </NavLink>
 
+        {/* Careers */}
         <NavLink
           to="/careers"
           className={({ isActive }) =>
@@ -42,6 +42,17 @@ const Navbar = () => {
           <ChevronDown size={15} />
         </NavLink>
 
+        {/* Education */}
+        <NavLink
+          to="/education"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          Education
+        </NavLink>
+
+        {/* Roadmap */}
         <NavLink
           to="/roadmap"
           className={({ isActive }) =>
@@ -51,6 +62,7 @@ const Navbar = () => {
           Roadmap
         </NavLink>
 
+        {/* Colleges */}
         <NavLink
           to="/colleges"
           className={({ isActive }) =>
@@ -61,6 +73,7 @@ const Navbar = () => {
           <ChevronDown size={15} />
         </NavLink>
 
+        {/* Exams */}
         <NavLink
           to="/exams"
           className={({ isActive }) =>
@@ -71,6 +84,7 @@ const Navbar = () => {
           <ChevronDown size={15} />
         </NavLink>
 
+        {/* Resources */}
         <NavLink
           to="/resources"
           className={({ isActive }) =>
@@ -81,6 +95,7 @@ const Navbar = () => {
           <ChevronDown size={15} />
         </NavLink>
 
+        {/* AI Tools */}
         <NavLink
           to="/ai-tools"
           className={({ isActive }) =>
@@ -92,7 +107,7 @@ const Navbar = () => {
         </NavLink>
       </div>
 
-      {/* Right Section */}
+      {/* ==================== RIGHT SECTION ==================== */}
       <div className="navbar-right">
         {/* Search */}
         <div className="search-box">
@@ -116,6 +131,7 @@ const Navbar = () => {
 
           <div className="profile-details">
             <strong>Hi, Arjun</strong>
+
             <span>12th Grade</span>
           </div>
 
