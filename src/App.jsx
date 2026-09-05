@@ -13,6 +13,8 @@ import Resources from "../src/pages/resources/Resources";
 
 import "./App.css";
 
+import CareerDetails from "./pages/careers/CareerDetails";
+
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +25,7 @@ function App() {
 
         <Route path="/careers" element={<Careers />} />
 
+        <Route path="/careers/:id" element={<CareerDetails />} />
         <Route path="/roadmap" element={<Roadmap />} />
 
         <Route path="/colleges" element={<Colleges />} />
