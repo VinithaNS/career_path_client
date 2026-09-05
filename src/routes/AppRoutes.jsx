@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Roadmap from "../components/roadmap/Roadmap";
+import RoadmapDetails from "../components/roadmap/RoadmapDetails";
 import AITools from "../pages/ai/AITools";
 import CareerDetails from "../pages/careers/CareerDetails";
 import Careers from "../pages/careers/Careers";
@@ -14,30 +15,31 @@ import Resources from "../pages/resources/Resources";
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Home */}
+      {/* HOME */}
       <Route path="/" element={<Home />} />
 
-      {/* Careers */}
+      {/* CAREERS */}
       <Route path="/careers" element={<Careers />} />
       <Route path="/careers/:id" element={<CareerDetails />} />
 
-      {/* Education */}
+      {/* EDUCATION */}
       <Route path="/education" element={<Education />} />
       <Route path="/education/:id" element={<CourseDetails />} />
 
-      {/* Roadmap */}
+      {/* ROADMAP */}
       <Route path="/roadmap" element={<Roadmap />} />
+      <Route path="/roadmap/:id" element={<RoadmapDetails />} />
 
-      {/* Colleges */}
+      {/* COLLEGES */}
       <Route path="/colleges" element={<Colleges />} />
 
-      {/* Exams */}
+      {/* EXAMS */}
       <Route path="/exams" element={<Exams />} />
 
-      {/* Resources */}
+      {/* RESOURCES */}
       <Route path="/resources" element={<Resources />} />
 
-      {/* AI Tools */}
+      {/* AI TOOLS */}
       <Route path="/ai-tools" element={<AITools />} />
     </Routes>
   );
