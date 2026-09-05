@@ -1,0 +1,73 @@
+.page {
+  min-height: calc(100vh - 76px);
+
+  padding: 30px 30px;
+
+  background: linear-gradient(135deg, #f5f9ff, #ffffff);
+}
+
+.page-content {
+  max-width: 700px;
+}
+
+.badge {
+  display: inline-block;
+
+  padding: 8px 14px;
+
+  border-radius: 20px;
+
+  background: #e6f0ff;
+
+  color: #155eef;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.page h1 {
+  font-size: 48px;
+
+  line-height: 1.15;
+
+  margin: 20px 0;
+
+  color: #101b34;
+}
+
+.page h1 span {
+  color: #2463eb;
+}
+
+.page p {
+  font-size: 17px;
+
+  line-height: 1.7;
+
+  color: #475467;
+
+  max-width: 650px;
+}
+
+.route-page {
+  min-height: calc(100vh - 76px);
+
+  padding: 60px 80px;
+
+  background: #f8faff;
+}
+
+.route-page h1 {
+  font-size: 36px;
+
+  color: #101828;
+
+  margin-bottom: 12px;
+}
+
+.route-page p {
+  font-size: 16px;
+
+  color: #667085;
+}
