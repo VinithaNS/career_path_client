@@ -1,5 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 
+import { AuthProvider } from "../src/pages/context/AuthContext";
+
 import "./App.css";
 
 import AppRoutes from "./routes/AppRoutes";
@@ -8,9 +10,10 @@ import Navbar from "./components/common/Navbar";
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-
-      <AppRoutes />
+      <AuthProvider>
+        <Navbar />
+        <AppRoutes />
+      </AuthProvider>
     </BrowserRouter>
   );
 }

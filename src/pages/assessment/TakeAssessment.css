@@ -1,0 +1,184 @@
+.take-assessment-page {
+  min-height: 100vh;
+  background: #f7f9fc;
+  padding: 30px 20px 60px;
+}
+.take-assessment-container {
+  width: min(780px, 100%);
+  margin: 0 auto;
+}
+
+.take-assessment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.take-assessment-progress-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #172033;
+  font-size: 14px;
+  font-weight: 700;
+}
+.answered-count {
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.take-assessment-timer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #f5f3ff;
+  color: #7c3aed;
+  font-size: 14px;
+  font-weight: 800;
+}
+.take-assessment-timer.urgent {
+  background: #fef2f2;
+  color: #dc2626;
+  animation: timerPulse 1s ease infinite;
+}
+@keyframes timerPulse {
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.take-assessment-progress-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 6px;
+  background: #e5eaf1;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+.take-assessment-progress-fill {
+  height: 100%;
+  background: #7c3aed;
+  transition: width 0.3s ease;
+}
+
+.take-assessment-question-card {
+  background: #ffffff;
+  border: 1px solid #e5eaf1;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.045);
+  margin-bottom: 24px;
+}
+.take-assessment-question-card h2 {
+  margin: 0 0 24px;
+  color: #172033;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.take-assessment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.take-assessment-options button {
+  text-align: left;
+  padding: 16px 18px;
+  border-radius: 13px;
+  border: 1.5px solid #e5eaf1;
+  background: #f8fafc;
+  color: #172033;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.take-assessment-options button:hover {
+  border-color: #c4b5fd;
+  background: #faf9ff;
+}
+.take-assessment-options button.option-selected {
+  border-color: #7c3aed;
+  background: #f5f3ff;
+  color: #6d28d9;
+  font-weight: 700;
+}
+
+.take-assessment-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+.nav-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.nav-btn.secondary {
+  background: #ffffff;
+  border: 1.5px solid #e5eaf1;
+  color: #64748b;
+}
+.nav-btn.secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.nav-btn.primary {
+  background: #7c3aed;
+  color: #ffffff;
+}
+.nav-btn.primary:hover {
+  background: #6d28d9;
+}
+.nav-btn.primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.take-assessment-loading,
+.take-assessment-error {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+}
+.take-assessment-error button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 17px;
+  background: #7c3aed;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.spin {
+  animation: takeAssessSpin 1s linear infinite;
+}
+@keyframes takeAssessSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .take-assessment-question-card {
+    padding: 22px;
+  }
+  .take-assessment-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

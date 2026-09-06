@@ -62,6 +62,16 @@ const Navbar = () => {
           Roadmap
         </NavLink>
 
+        {/* Assessments */}
+        <NavLink
+          to="/assessments"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          Assessments
+        </NavLink>
+
         {/* Colleges */}
         <NavLink
           to="/colleges"
