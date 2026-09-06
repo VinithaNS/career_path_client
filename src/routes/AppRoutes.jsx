@@ -5,6 +5,7 @@ import RoadmapDetails from "../components/roadmap/RoadmapDetails";
 import AITools from "../pages/ai/AITools";
 import CareerDetails from "../pages/careers/CareerDetails";
 import Careers from "../pages/careers/Careers";
+import CollegeDetails from "../pages/colleges/CollegeDetails";
 import Colleges from "../pages/colleges/Colleges";
 import CourseDetails from "../pages/education/CourseDetails";
 import Education from "../pages/education/Education";
@@ -32,6 +33,7 @@ const AppRoutes = () => {
 
       {/* COLLEGES */}
       <Route path="/colleges" element={<Colleges />} />
+      <Route path="/colleges/:id" element={<CollegeDetails />} />
 
       {/* EXAMS */}
       <Route path="/exams" element={<Exams />} />

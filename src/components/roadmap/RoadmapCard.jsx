@@ -6,6 +6,8 @@ import {
   Layers3
 } from "lucide-react";
 
+import "./RoadmapCard.css";
+
 const RoadmapCard = ({ roadmap, onViewDetails }) => {
   const title =
     roadmap.title ||
@@ -43,22 +45,22 @@ const RoadmapCard = ({ roadmap, onViewDetails }) => {
 
   return (
     <article className="roadmap-card">
-      {/* CARD TOP */}
+      {/* ACCENT ICON */}
 
-      <div className="roadmap-card-top">
-        <div className="roadmap-card-icon">
-          <BookOpen size={25} strokeWidth={1.8} />
-        </div>
-
-        <span className="roadmap-card-badge">{category}</span>
+      <div className="roadmap-card-icon">
+        <BookOpen size={24} strokeWidth={1.8} />
       </div>
 
-      {/* CARD CONTENT */}
+      {/* CONTENT */}
 
       <div className="roadmap-card-body">
-        <div className="roadmap-card-eyebrow">
-          <Layers3 size={14} />
-          CAREER PATH
+        <div className="roadmap-card-top-row">
+          <span className="roadmap-card-eyebrow">
+            <Layers3 size={13} />
+            CAREER PATH
+          </span>
+
+          <span className="roadmap-card-badge">{category}</span>
         </div>
 
         <h3>{title}</h3>
@@ -69,15 +71,17 @@ const RoadmapCard = ({ roadmap, onViewDetails }) => {
 
         <div className="roadmap-card-meta">
           <div className="roadmap-meta-item">
-            <Clock3 size={17} />
+            <Clock3 size={16} />
             <div>
               <span>Duration</span>
               <strong>{duration}</strong>
             </div>
           </div>
 
+          <div className="roadmap-meta-divider"></div>
+
           <div className="roadmap-meta-item">
-            <CheckCircle2 size={17} />
+            <CheckCircle2 size={16} />
             <div>
               <span>Roadmap</span>
               <strong>{steps} Steps</strong>
@@ -88,11 +92,12 @@ const RoadmapCard = ({ roadmap, onViewDetails }) => {
         {/* BUTTON */}
 
         <button
+          type="button"
           className="roadmap-card-button"
           onClick={() => onViewDetails(roadmap._id)}
         >
           <span>View Roadmap</span>
-          <ArrowRight size={18} />
+          <ArrowRight size={17} />
         </button>
       </div>
     </article>
