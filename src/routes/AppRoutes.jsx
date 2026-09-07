@@ -18,9 +18,12 @@ import CourseDetails from "../pages/education/CourseDetails";
 import Education from "../pages/education/Education";
 import Exams from "../pages/exams/Exam";
 import ExamDetails from "../pages/exams/ExamDetails";
+import MyProfile from "../pages/profile/MyProfile";
 import Home from "../pages/public/Home";
 import Resources from "../pages/resources/Resources";
-import ProtectedRoute from "../../src/routes/ProtectedRoute";
+
+import ProtectedRoute from "./ProtectedRoute";
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -31,6 +34,16 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/complete-profile" element={<CompleteProfile />} />
+
+      {/* PROFILE */}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <MyProfile />
+          </ProtectedRoute>
+        }
+      />
 
       {/* CAREERS */}
       <Route path="/careers" element={<Careers />} />
@@ -50,7 +63,6 @@ const AppRoutes = () => {
 
       {/* EXAMS */}
       <Route path="/exams" element={<Exams />} />
-
       <Route path="/exams/:id" element={<ExamDetails />} />
 
       {/* RESOURCES */}

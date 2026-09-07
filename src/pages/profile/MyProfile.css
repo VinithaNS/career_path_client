@@ -1,0 +1,149 @@
+.my-profile-page {
+  min-height: 100vh;
+  background: #f7f9fc;
+  padding: 40px 20px 80px;
+}
+.my-profile-container {
+  width: min(680px, 100%);
+  margin: 0 auto;
+}
+.my-profile-container h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 26px;
+  letter-spacing: -0.5px;
+}
+.my-profile-subtitle {
+  margin: 6px 0 26px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.my-profile-card {
+  background: #ffffff;
+  border: 1px solid #e5eaf1;
+  border-radius: 22px;
+  padding: 32px;
+}
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+.avatar-wrapper {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #eff5ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border: 3px solid #eef2f7;
+}
+.avatar-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.avatar-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.avatar-wrapper:hover .avatar-overlay {
+  opacity: 1;
+}
+.avatar-hint {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.my-profile-form h3 {
+  margin: 20px 0 12px;
+  color: #172033;
+  font-size: 14px;
+}
+.my-profile-form h3:first-child {
+  margin-top: 0;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.my-profile-form > input {
+  width: 100%;
+  margin-bottom: 12px;
+}
+.my-profile-form input {
+  padding: 13px 15px;
+  border-radius: 11px;
+  border: 1.5px solid #e5eaf1;
+  font-size: 14px;
+  color: #172033;
+  outline: none;
+  transition: 0.2s ease;
+}
+.my-profile-form input:focus {
+  border-color: #2563eb;
+}
+
+.profile-error {
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 6px 0;
+}
+.profile-success {
+  color: #16a34a;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+.save-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.save-button:hover {
+  background: #1d4ed8;
+}
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+  .my-profile-card {
+    padding: 22px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

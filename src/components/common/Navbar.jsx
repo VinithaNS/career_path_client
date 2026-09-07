@@ -1,10 +1,44 @@
-import { NavLink } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 
-import { ChevronDown, Search, Bell, GraduationCap } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+
+import {
+  ChevronDown,
+  Search,
+  User,
+  LogOut,
+  UserCircle,
+  GraduationCap
+} from "lucide-react";
+
+import { useAuth } from "../../pages/context/AuthContext";
 
 import "./Navbar.css";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    setMenuOpen(false);
+    navigate("/login");
+  };
+
   return (
     <nav className="navbar">
       {/* ==================== LOGO ==================== */}
@@ -21,7 +55,6 @@ const Navbar = () => {
 
       {/* ==================== NAVIGATION ==================== */}
       <div className="nav-links">
-        {/* Home */}
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -30,8 +63,6 @@ const Navbar = () => {
         >
           Home
         </NavLink>
-
-        {/* Careers */}
         <NavLink
           to="/careers"
           className={({ isActive }) =>
@@ -39,10 +70,7 @@ const Navbar = () => {
           }
         >
           Careers
-          <ChevronDown size={15} />
         </NavLink>
-
-        {/* Education */}
         <NavLink
           to="/education"
           className={({ isActive }) =>
@@ -51,8 +79,6 @@ const Navbar = () => {
         >
           Education
         </NavLink>
-
-        {/* Roadmap */}
         <NavLink
           to="/roadmap"
           className={({ isActive }) =>
@@ -61,8 +87,6 @@ const Navbar = () => {
         >
           Roadmap
         </NavLink>
-
-        {/* Assessments */}
         <NavLink
           to="/assessments"
           className={({ isActive }) =>
@@ -71,8 +95,6 @@ const Navbar = () => {
         >
           Assessments
         </NavLink>
-
-        {/* Colleges */}
         <NavLink
           to="/colleges"
           className={({ isActive }) =>
@@ -80,10 +102,7 @@ const Navbar = () => {
           }
         >
           Colleges
-          <ChevronDown size={15} />
         </NavLink>
-
-        {/* Exams */}
         <NavLink
           to="/exams"
           className={({ isActive }) =>
@@ -91,10 +110,7 @@ const Navbar = () => {
           }
         >
           Exams
-          <ChevronDown size={15} />
         </NavLink>
-
-        {/* Resources */}
         <NavLink
           to="/resources"
           className={({ isActive }) =>
@@ -102,10 +118,7 @@ const Navbar = () => {
           }
         >
           Resources
-          <ChevronDown size={15} />
         </NavLink>
-
-        {/* AI Tools */}
         <NavLink
           to="/ai-tools"
           className={({ isActive }) =>
@@ -113,40 +126,66 @@ const Navbar = () => {
           }
         >
           AI Tools
-          <ChevronDown size={15} />
         </NavLink>
       </div>
 
       {/* ==================== RIGHT SECTION ==================== */}
       <div className="navbar-right">
-        {/* Search */}
         <div className="search-box">
           <input type="text" placeholder="Search careers, courses..." />
-
           <Search size={21} />
         </div>
 
-        {/* Notification */}
-        <div className="notification">
-          <Bell size={24} />
+        {user ? (
+          <div className="profile-menu" ref={menuRef}>
+            <button
+              type="button"
+              className="profile-trigger"
+              onClick={() => setMenuOpen((prev) => !prev)}
+            >
+              <div className="profile-icon">
+                <User size={19} />
+              </div>
+              <ChevronDown
+                size={16}
+                className={menuOpen ? "chevron-open" : ""}
+              />
+            </button>
 
-          <span className="notification-count">3</span>
-        </div>
+            {menuOpen && (
+              <div className="profile-dropdown">
+                <div className="profile-dropdown-header">
+                  <strong>
+                    {user.firstName} {user.lastName}
+                  </strong>
+                  <span>{user.email}</span>
+                </div>
 
-        {/* Profile */}
-        <div className="profile">
-          <div className="profile-image">
-            <img src="https://i.pravatar.cc/100?img=12" alt="profile" />
+                <NavLink
+                  to="/profile"
+                  className="profile-dropdown-item"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <UserCircle size={17} />
+                  <span>My Profile</span>
+                </NavLink>
+
+                <button
+                  type="button"
+                  className="profile-dropdown-item logout"
+                  onClick={handleLogout}
+                >
+                  <LogOut size={17} />
+                  <span>Logout</span>
+                </button>
+              </div>
+            )}
           </div>
-
-          <div className="profile-details">
-            <strong>Hi, Arjun</strong>
-
-            <span>12th Grade</span>
-          </div>
-
-          <ChevronDown size={17} />
-        </div>
+        ) : (
+          <NavLink to="/login" className="login-button">
+            Log In
+          </NavLink>
+        )}
       </div>
     </nav>
   );

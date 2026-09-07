@@ -41,10 +41,17 @@ export const AuthProvider = ({ children }) => {
         return response.data;
       }
     } catch {
-      // No profile yet — that's expected pre-onboarding, not an error
       persistStudentProfile(null);
     }
     return null;
+  };
+
+  const updateLocalUser = (updatedFields) => {
+    setUser((prev) => {
+      const merged = { ...prev, ...updatedFields };
+      localStorage.setItem("user", JSON.stringify(merged));
+      return merged;
+    });
   };
 
   useEffect(() => {
@@ -98,7 +105,8 @@ export const AuthProvider = ({ children }) => {
         register,
         login,
         logout,
-        refreshStudentProfile
+        refreshStudentProfile,
+        updateLocalUser
       }}
     >
       {children}
