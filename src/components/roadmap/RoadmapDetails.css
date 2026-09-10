@@ -1,12 +1,12 @@
 /* ==========================================
-   ROADMAP DETAILS PAGE
+   ROADMAP DETAILS PAGE — CAREERPATH THEME (PINK / PURPLE)
 ========================================== */
 
 .roadmap-details-page {
   min-height: 100vh;
-  background: #f7f9fc;
+  background: #fff7fb;
   padding: 42px 0 80px;
-  color: #111827;
+  color: #1f1235;
 }
 
 .roadmap-details-container {
@@ -28,7 +28,7 @@
   border: none;
   background: transparent;
 
-  color: #52637a;
+  color: #8a7a8f;
 
   font-size: 14px;
   font-weight: 600;
@@ -39,7 +39,7 @@
 }
 
 .roadmap-back-button:hover {
-  color: #2563eb;
+  color: #db2777;
   transform: translateX(-3px);
 }
 
@@ -57,12 +57,12 @@
 
   padding: 58px 60px;
 
-  background: linear-gradient(135deg, #eef4ff 0%, #f5f2ff 52%, #f8fbff 100%);
+  background: linear-gradient(135deg, #fdf1f8 0%, #f6effc 52%, #fdf6fb 100%);
 
-  border: 1px solid #e1e8f3;
+  border: 1px solid #f5e1ee;
   border-radius: 28px;
 
-  box-shadow: 0 20px 55px rgba(26, 44, 72, 0.07);
+  box-shadow: 0 20px 55px rgba(124, 45, 130, 0.08);
 }
 
 .roadmap-details-hero::before {
@@ -76,7 +76,7 @@
   left: -100px;
 
   border-radius: 50%;
-  background: rgba(37, 99, 235, 0.06);
+  background: rgba(219, 39, 119, 0.08);
 }
 
 .roadmap-details-hero::after {
@@ -90,7 +90,7 @@
   right: -70px;
 
   border-radius: 50%;
-  background: rgba(124, 92, 246, 0.06);
+  background: rgba(147, 51, 234, 0.08);
 }
 
 .roadmap-details-icon {
@@ -106,12 +106,12 @@
   align-items: center;
   justify-content: center;
 
-  background: #ffffff;
-  color: #2563eb;
+  background: linear-gradient(135deg, #9333ea, #db2777);
+  color: #ffffff;
 
   border-radius: 20px;
 
-  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.12);
+  box-shadow: 0 12px 30px rgba(219, 39, 119, 0.22);
 }
 
 .roadmap-details-content {
@@ -126,7 +126,7 @@
 
   margin-bottom: 14px;
 
-  color: #2563eb;
+  color: #db2777;
 
   font-size: 12px;
   font-weight: 700;
@@ -144,14 +144,14 @@
   font-size: clamp(34px, 4.5vw, 54px);
   line-height: 1.1;
 
-  color: #101827;
+  color: #3b0764;
 }
 
 .roadmap-details-content p {
   max-width: 700px;
   margin: 0;
 
-  color: #60718a;
+  color: #6b5b73;
 
   font-size: 17px;
   line-height: 1.8;
@@ -173,14 +173,14 @@
   align-items: center;
   gap: 8px;
 
-  color: #52637a;
+  color: #8a7a8f;
 
   font-size: 14px;
   font-weight: 600;
 }
 
 .roadmap-details-meta svg {
-  color: #2563eb;
+  color: #db2777;
 }
 
 /* ==========================================
@@ -204,7 +204,7 @@
 }
 
 .details-section-title > span {
-  color: #2563eb;
+  color: #db2777;
 
   font-family: Georgia, "Times New Roman", serif;
 
@@ -220,13 +220,13 @@
 
   font-size: 36px;
 
-  color: #101827;
+  color: #3b0764;
 }
 
 .details-section-title p {
   margin: 0;
 
-  color: #687990;
+  color: #8a7a8f;
 
   font-size: 15px;
 }
@@ -250,7 +250,7 @@
 
   width: 2px;
 
-  background: #dce5f2;
+  background: #f3d9e8;
 }
 
 .roadmap-step {
@@ -275,35 +275,35 @@
   justify-content: center;
 
   background: #ffffff;
-  border: 2px solid #dbe6f7;
+  border: 2px solid #f0c9e0;
   border-radius: 50%;
 
-  color: #2563eb;
+  color: #db2777;
   font-weight: 700;
 
-  box-shadow: 0 5px 18px rgba(25, 45, 75, 0.07);
+  box-shadow: 0 5px 18px rgba(124, 45, 130, 0.1);
 }
 
 .roadmap-step-content {
   background: #ffffff;
-  border: 1px solid #e4eaf2;
+  border: 1px solid #f5e1ee;
   border-radius: 18px;
 
   padding: 25px 28px;
 
-  box-shadow: 0 10px 28px rgba(30, 45, 65, 0.04);
+  box-shadow: 0 10px 28px rgba(124, 45, 130, 0.05);
 
   transition: 0.25s ease;
 }
 
 .roadmap-step-content:hover {
   transform: translateY(-3px);
-  border-color: #cbdaf2;
-  box-shadow: 0 16px 35px rgba(30, 45, 65, 0.08);
+  border-color: #f0c9e0;
+  box-shadow: 0 16px 35px rgba(219, 39, 119, 0.1);
 }
 
 .roadmap-step-content > span {
-  color: #7a8799;
+  color: #b9a4bd;
 
   font-size: 11px;
   font-weight: 700;
@@ -317,13 +317,13 @@
 
   font-size: 23px;
 
-  color: #111827;
+  color: #1f1235;
 }
 
 .roadmap-step-content p {
   margin: 0;
 
-  color: #64748b;
+  color: #8a7a8f;
 
   font-size: 14px;
   line-height: 1.7;
@@ -335,14 +335,14 @@
 
 .roadmap-no-steps {
   background: #ffffff;
-  border: 1px solid #e3e9f2;
+  border: 1px solid #f5e1ee;
   border-radius: 20px;
 
   padding: 60px 30px;
 
   text-align: center;
 
-  color: #2563eb;
+  color: #db2777;
 }
 
 .roadmap-no-steps h3 {
@@ -352,13 +352,13 @@
 
   font-size: 24px;
 
-  color: #101827;
+  color: #3b0764;
 }
 
 .roadmap-no-steps p {
   margin: 0;
 
-  color: #718096;
+  color: #8a7a8f;
 
   font-size: 14px;
 }
@@ -374,12 +374,12 @@
 
 .roadmap-sidebar-card {
   background: #ffffff;
-  border: 1px solid #e3e9f2;
+  border: 1px solid #f5e1ee;
   border-radius: 18px;
 
   padding: 23px;
 
-  box-shadow: 0 8px 25px rgba(30, 45, 65, 0.04);
+  box-shadow: 0 8px 25px rgba(124, 45, 130, 0.05);
 }
 
 .roadmap-sidebar-card h3 {
@@ -389,7 +389,7 @@
 
   font-size: 20px;
 
-  color: #111827;
+  color: #3b0764;
 }
 
 .sidebar-item {
@@ -408,7 +408,7 @@
   display: block;
 
   font-size: 14px;
-  color: #101827;
+  color: #1f1235;
 }
 
 .sidebar-item span {
@@ -417,7 +417,7 @@
   margin-top: 4px;
 
   font-size: 13px;
-  color: #718096;
+  color: #8a7a8f;
   line-height: 1.5;
 }
 
@@ -435,18 +435,18 @@
 }
 
 .sidebar-icon.blue {
-  background: #edf4ff;
-  color: #2563eb;
+  background: #f3e8ff;
+  color: #7c3aed;
 }
 
 .sidebar-icon.purple {
-  background: #f2edff;
-  color: #7c5ce6;
+  background: #fce7f3;
+  color: #db2777;
 }
 
 .sidebar-icon.green {
-  background: #eaf8f2;
-  color: #17a673;
+  background: #fce7f3;
+  color: #be185d;
 }
 
 .sidebar-icon.orange {
@@ -470,7 +470,7 @@
 
   text-align: center;
 
-  color: #111827;
+  color: #1f1235;
 }
 
 .roadmap-details-status h3 {
@@ -486,18 +486,18 @@
 
   max-width: 420px;
 
-  color: #718096;
+  color: #8a7a8f;
 
   font-size: 14px;
 }
 
 .roadmap-details-status button {
   border: none;
-  border-radius: 9px;
+  border-radius: 10px;
 
   padding: 12px 20px;
 
-  background: #111827;
+  background: linear-gradient(135deg, #9333ea, #db2777);
   color: #ffffff;
 
   font-weight: 600;
@@ -509,7 +509,7 @@
 
 .roadmap-details-status button:hover {
   transform: translateY(-2px);
-  background: #2563eb;
+  filter: brightness(1.08);
 }
 
 .roadmap-details-status.error h3 {
@@ -522,8 +522,8 @@
 
   margin-bottom: 20px;
 
-  border: 3px solid #e2e8f0;
-  border-top-color: #2563eb;
+  border: 3px solid #f3d9e8;
+  border-top-color: #db2777;
   border-radius: 50%;
 
   animation: roadmap-spin 0.8s linear infinite;

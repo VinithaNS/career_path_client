@@ -1,5 +1,5 @@
 /* =========================================================
-   ROADMAP CARD — PROFESSIONAL / CORPORATE
+   ROADMAP CARD — CAREERPATH THEME (PINK / PURPLE)
 ========================================================= */
 
 .roadmap-card {
@@ -13,20 +13,22 @@
   padding: 22px 22px 20px;
 
   background: #ffffff;
-  border: 1px solid #e4e7ec;
-  border-left: 3px solid #2563eb;
-  border-radius: 10px;
+  border: 1px solid #f5e1ee;
+  border-left: 3px solid #db2777;
+  border-radius: 14px;
 
   transition:
     border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .roadmap-card:hover {
-  border-color: #d0d5dd;
-  border-left-color: #101828;
+  border-color: #f0d3e6;
+  border-left-color: #9333ea;
 
-  box-shadow: 0 8px 22px rgba(16, 24, 40, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(219, 39, 119, 0.12);
 }
 
 /* ---------------------------------------------------------
@@ -43,10 +45,10 @@
 
   margin-bottom: 16px;
 
-  border-radius: 9px;
+  border-radius: 12px;
 
-  background: #edf4ff;
-  color: #2563eb;
+  background: linear-gradient(135deg, #f3e8ff, #fce7f3);
+  color: #9333ea;
 }
 
 /* ---------------------------------------------------------
@@ -73,7 +75,7 @@
   align-items: center;
   gap: 6px;
 
-  color: #98a2b3;
+  color: #b9a4bd;
 
   font-size: 10.5px;
   font-weight: 700;
@@ -83,10 +85,10 @@
 .roadmap-card-badge {
   padding: 4px 10px;
 
-  border-radius: 6px;
+  border-radius: 20px;
 
-  background: #f2f4f7;
-  color: #344054;
+  background: #fce7f3;
+  color: #9d174d;
 
   font-size: 10.5px;
   font-weight: 700;
@@ -105,7 +107,7 @@
   font-weight: 700;
   line-height: 1.3;
 
-  color: #101828;
+  color: #3b0764;
 }
 
 .roadmap-card-description {
@@ -113,7 +115,7 @@
 
   min-height: 60px;
 
-  color: #667085;
+  color: #8a7a8f;
 
   font-size: 13.5px;
   line-height: 1.6;
@@ -135,7 +137,7 @@
   margin: 18px 0 16px;
   padding-top: 16px;
 
-  border-top: 1px solid #eaecf0;
+  border-top: 1px solid #f5e1ee;
 }
 
 .roadmap-meta-item {
@@ -145,7 +147,7 @@
 
   flex: 1;
 
-  color: #98a2b3;
+  color: #d8a6c4;
 }
 
 .roadmap-meta-item div {
@@ -157,13 +159,13 @@
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.2px;
-  color: #98a2b3;
+  color: #b9a4bd;
 }
 
 .roadmap-meta-item strong {
   font-size: 12.5px;
   font-weight: 700;
-  color: #344054;
+  color: #5b2a63;
 }
 
 .roadmap-meta-divider {
@@ -172,7 +174,7 @@
 
   margin: 0 12px;
 
-  background: #eaecf0;
+  background: #f5e1ee;
 }
 
 /* ---------------------------------------------------------
@@ -189,10 +191,10 @@
 
   padding: 11px 14px;
 
-  border: 1px solid #101828;
-  border-radius: 8px;
+  border: 1px solid transparent;
+  border-radius: 10px;
 
-  background: #101828;
+  background: linear-gradient(135deg, #9333ea, #db2777);
   color: #ffffff;
 
   font-size: 13px;
@@ -202,12 +204,15 @@
 
   transition:
     background 0.15s ease,
-    color 0.15s ease;
+    color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .roadmap-card-button:hover {
   background: #ffffff;
-  color: #101828;
+  color: #9333ea;
+  border-color: #9333ea;
+  box-shadow: 0 8px 18px rgba(147, 51, 234, 0.18);
 }
 
 /* ---------------------------------------------------------

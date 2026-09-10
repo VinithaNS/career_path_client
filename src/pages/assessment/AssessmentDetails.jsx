@@ -1,6 +1,18 @@
+// src/pages/assessments/AssessmentDetails.jsx
+
 import { useEffect, useState } from "react";
 
-import { ArrowLeft, Clock3, HelpCircle, Target, RefreshCw } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Brain,
+  CheckCircle2,
+  Clock3,
+  HelpCircle,
+  RefreshCw,
+  Sparkles,
+  Target
+} from "lucide-react";
 
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -22,10 +34,16 @@ const AssessmentDetails = () => {
   useEffect(() => {
     let isMounted = true;
 
-    const load = async () => {
+    const loadAssessment = async () => {
       try {
+        setLoading(true);
+        setError("");
+
         const response = await getAssessmentById(id);
-        if (!isMounted) return;
+
+        if (!isMounted) {
+          return;
+        }
 
         if (response?.success) {
           setAssessment(response.data);
@@ -33,14 +51,20 @@ const AssessmentDetails = () => {
           setError(response?.message || "Assessment not found.");
         }
       } catch (err) {
-        if (!isMounted) return;
+        if (!isMounted) {
+          return;
+        }
+
         setError(err?.response?.data?.message || "Unable to load assessment.");
       } finally {
-        if (isMounted) setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
-    load();
+    loadAssessment();
+
     return () => {
       isMounted = false;
     };
@@ -56,6 +80,8 @@ const AssessmentDetails = () => {
 
     try {
       setStarting(true);
+      setError("");
+
       const response = await startAssessment(studentId, id);
 
       if (response?.success) {
@@ -74,8 +100,13 @@ const AssessmentDetails = () => {
     return (
       <section className="assessment-details-page">
         <div className="assessment-details-loading">
-          <RefreshCw className="spin" size={32} />
+          <div className="assessment-details-loading-icon">
+            <RefreshCw className="spin" size={30} />
+          </div>
+
           <h2>Loading assessment...</h2>
+
+          <p>Preparing everything you need to get started.</p>
         </div>
       </section>
     );
@@ -85,10 +116,16 @@ const AssessmentDetails = () => {
     return (
       <section className="assessment-details-page">
         <div className="assessment-details-error">
+          <div className="assessment-details-error-icon">
+            <Brain size={30} />
+          </div>
+
           <h2>Assessment Not Found</h2>
+
           <p>{error}</p>
+
           <button type="button" onClick={() => navigate("/assessments")}>
-            <ArrowLeft size={18} />
+            <ArrowLeft size={17} />
             <span>Back to Assessments</span>
           </button>
         </div>
@@ -104,49 +141,153 @@ const AssessmentDetails = () => {
           className="back-assessment-btn"
           onClick={() => navigate("/assessments")}
         >
-          <ArrowLeft size={18} />
+          <ArrowLeft size={17} />
           <span>Back to Assessments</span>
         </button>
 
-        <div className="assessment-details-card">
-          <span className="assessment-details-category">
-            {assessment.category?.categoryName}
-          </span>
-          <h1>{assessment.title}</h1>
-          <p className="assessment-details-desc">{assessment.description}</p>
+        <div className="assessment-details-layout">
+          <div className="assessment-details-main">
+            <div className="assessment-details-card">
+              <div className="assessment-details-top">
+                <span className="assessment-details-category">
+                  {assessment.category?.categoryName || "Assessment"}
+                </span>
 
-          <div className="assessment-details-stats">
-            <div>
-              <Clock3 size={20} />
-              <span>{assessment.duration} minutes</span>
-            </div>
-            <div>
-              <HelpCircle size={20} />
-              <span>{assessment.totalQuestions} questions</span>
-            </div>
-            <div>
-              <Target size={20} />
-              <span>Pass at {assessment.passingScore}%</span>
+                <div className="assessment-details-sparkle">
+                  <Sparkles size={17} />
+                </div>
+              </div>
+
+              <h1>{assessment.title}</h1>
+
+              <p className="assessment-details-desc">
+                {assessment.description}
+              </p>
+
+              <div className="assessment-details-stats">
+                <div className="assessment-stat">
+                  <div className="assessment-stat-icon purple">
+                    <Clock3 size={18} />
+                  </div>
+
+                  <div>
+                    <span>Duration</span>
+                    <strong>{assessment.duration} minutes</strong>
+                  </div>
+                </div>
+
+                <div className="assessment-stat">
+                  <div className="assessment-stat-icon pink">
+                    <HelpCircle size={18} />
+                  </div>
+
+                  <div>
+                    <span>Questions</span>
+                    <strong>{assessment.totalQuestions}</strong>
+                  </div>
+                </div>
+
+                <div className="assessment-stat">
+                  <div className="assessment-stat-icon violet">
+                    <Target size={18} />
+                  </div>
+
+                  <div>
+                    <span>Passing Score</span>
+                    <strong>{assessment.passingScore}%</strong>
+                  </div>
+                </div>
+              </div>
+
+              {assessment.instructions && (
+                <div className="assessment-instructions-box">
+                  <div className="assessment-instructions-icon">
+                    <CheckCircle2 size={19} />
+                  </div>
+
+                  <div>
+                    <h3>Instructions</h3>
+                    <p>{assessment.instructions}</p>
+                  </div>
+                </div>
+              )}
+
+              {error && (
+                <div className="assessment-inline-error">
+                  <Brain size={17} />
+                  <span>{error}</span>
+                </div>
+              )}
+
+              <button
+                type="button"
+                className="assessment-begin-button"
+                onClick={handleStart}
+                disabled={starting}
+              >
+                {starting ? (
+                  <>
+                    <RefreshCw className="spin" size={17} />
+                    Starting Assessment...
+                  </>
+                ) : (
+                  <>
+                    Start Assessment
+                    <ArrowRight size={18} />
+                  </>
+                )}
+              </button>
+
+              <p className="assessment-start-note">
+                Make sure you have enough uninterrupted time before starting.
+              </p>
             </div>
           </div>
 
-          {assessment.instructions && (
-            <div className="assessment-instructions-box">
-              <h3>Instructions</h3>
-              <p>{assessment.instructions}</p>
+          <aside className="assessment-details-sidebar">
+            <div className="assessment-sidebar-card">
+              <div className="assessment-sidebar-icon">
+                <Brain size={27} />
+              </div>
+
+              <span className="assessment-sidebar-label">KNOW YOURSELF</span>
+
+              <h2>Understand your strengths</h2>
+
+              <p>
+                This assessment is designed to help you understand yourself
+                better and make more confident career decisions.
+              </p>
+
+              <div className="assessment-sidebar-list">
+                <div>
+                  <CheckCircle2 size={16} />
+                  <span>Discover your strengths</span>
+                </div>
+
+                <div>
+                  <CheckCircle2 size={16} />
+                  <span>Identify suitable career paths</span>
+                </div>
+
+                <div>
+                  <CheckCircle2 size={16} />
+                  <span>Get personalized insights</span>
+                </div>
+              </div>
             </div>
-          )}
 
-          {error && <p className="assessment-inline-error">{error}</p>}
+            <div className="assessment-sidebar-tip">
+              <Sparkles size={18} />
 
-          <button
-            type="button"
-            className="assessment-begin-button"
-            onClick={handleStart}
-            disabled={starting}
-          >
-            {starting ? "Starting..." : "Start Assessment"}
-          </button>
+              <div>
+                <strong>Quick Tip</strong>
+                <p>
+                  Answer each question honestly for the most useful results.
+                </p>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </section>

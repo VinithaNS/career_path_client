@@ -1,0 +1,281 @@
+.ai-hub {
+  min-height: 100vh;
+  background: var(--cp-bg);
+  padding: 30px;
+}
+
+.ai-hero {
+  min-height: 350px;
+  background: linear-gradient(135deg, var(--cp-navy), var(--cp-navy-light));
+
+  border-radius: 24px;
+  padding: 45px 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  overflow: hidden;
+  position: relative;
+
+  color: white;
+}
+
+.ai-hero-content {
+  max-width: 650px;
+  position: relative;
+  z-index: 2;
+}
+
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+
+  color: var(--cp-gold-light);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ai-hero h1 {
+  font-size: 42px;
+  line-height: 1.15;
+  margin: 22px 0 15px;
+}
+
+.ai-hero h1 span {
+  color: var(--cp-gold);
+}
+
+.ai-hero p {
+  color: #cbd5e1;
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 580px;
+}
+
+.ai-primary-btn {
+  margin-top: 22px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: var(--cp-gold);
+  color: var(--cp-navy);
+
+  padding: 13px 20px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ai-hero-visual {
+  width: 300px;
+  height: 280px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+.ai-orbit {
+  position: absolute;
+
+  border: 1px solid rgba(217, 164, 65, 0.35);
+
+  border-radius: 50%;
+}
+
+.orbit-one {
+  width: 220px;
+  height: 220px;
+}
+
+.orbit-two {
+  width: 280px;
+  height: 280px;
+}
+
+.ai-brain-card {
+  width: 120px;
+  height: 120px;
+
+  border-radius: 28px;
+
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--cp-gold);
+}
+
+.ai-brain-card span {
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.ai-tools-section {
+  margin-top: 35px;
+}
+
+.section-heading span {
+  color: var(--cp-gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.section-heading h2 {
+  color: var(--cp-navy);
+  margin-top: 6px;
+  font-size: 25px;
+}
+
+.ai-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.ai-tool-card {
+  background: white;
+  border-radius: var(--cp-radius);
+  padding: 24px;
+
+  border: 1px solid var(--cp-border);
+
+  box-shadow: var(--cp-shadow);
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.ai-tool-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--cp-gold);
+}
+
+.tool-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tool-icon {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f8f1df;
+  color: var(--cp-gold);
+}
+
+.tool-top span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cp-muted);
+}
+
+.ai-tool-card h3 {
+  margin-top: 25px;
+  color: var(--cp-navy);
+}
+
+.ai-tool-card p {
+  color: var(--cp-muted);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.tool-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 20px;
+
+  color: var(--cp-navy);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.ai-trust {
+  margin-top: 25px;
+
+  background: white;
+  border: 1px solid var(--cp-border);
+
+  border-radius: 14px;
+
+  padding: 18px 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  color: var(--cp-success);
+}
+
+.ai-trust strong {
+  color: var(--cp-navy);
+}
+
+.ai-trust p {
+  margin: 3px 0 0;
+  color: var(--cp-muted);
+  font-size: 13px;
+}
+
+@media (max-width: 1100px) {
+  .ai-tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .ai-hub {
+    padding: 15px;
+  }
+
+  .ai-hero {
+    padding: 30px;
+  }
+
+  .ai-hero-visual {
+    display: none;
+  }
+
+  .ai-hero h1 {
+    font-size: 32px;
+  }
+
+  .ai-tools-grid {
+    grid-template-columns: 1fr;
+  }
+}

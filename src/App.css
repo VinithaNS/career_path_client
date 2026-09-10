@@ -1,9 +1,19 @@
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
 .page {
-  min-height: calc(100vh - 76px);
-
-  padding: 30px 30px;
-
-  background: linear-gradient(135deg, #f5f9ff, #ffffff);
+  width: 100%;
+  min-height: auto; /* was min-height: 100vh — this was likely forcing a full screen of height even when content was shorter, pushing Footer down */
+  background: #ffffff;
+  color: #111827;
+  overflow-x: hidden;
 }
 
 .page-content {

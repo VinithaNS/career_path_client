@@ -1,0 +1,296 @@
+/* =========================================================
+   src/components/cards/AssessmentCard.css
+   ========================================================= */
+
+.assessment-card {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 23px;
+  background: #ffffff;
+  border: 1px solid #ebe7f5;
+  border-radius: 20px;
+  box-shadow: 0 8px 26px rgba(65, 45, 105, 0.055);
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* The soft accent gives the card the same pastel depth as the reference UI. */
+.assessment-card::before {
+  content: "";
+  position: absolute;
+  top: -65px;
+  right: -65px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(236, 72, 153, 0.075) 0%,
+    rgba(124, 58, 237, 0.035) 45%,
+    rgba(255, 255, 255, 0) 72%
+  );
+  pointer-events: none;
+}
+
+.assessment-card:hover {
+  transform: translateY(-5px);
+  border-color: #ddd0f5;
+  box-shadow: 0 18px 38px rgba(91, 63, 135, 0.11);
+}
+
+.assessment-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.assessment-card-icon {
+  width: 45px;
+  height: 45px;
+  flex: 0 0 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c3aed;
+  background: linear-gradient(135deg, #f5f0ff 0%, #fcecf8 100%);
+  border: 1px solid #eadcfb;
+  border-radius: 13px;
+}
+
+.assessment-difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 26px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.55px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.assessment-difficulty-badge.green {
+  color: #16a34a;
+  background: #ecfdf3;
+  border: 1px solid #d4f7e1;
+}
+
+.assessment-difficulty-badge.orange {
+  color: #ea580c;
+  background: #fff7ed;
+  border: 1px solid #ffead5;
+}
+
+.assessment-difficulty-badge.red {
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+}
+
+.assessment-category {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-bottom: 7px;
+  color: #8b5cf6;
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+}
+
+.assessment-card-title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #241443;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 750;
+  letter-spacing: -0.3px;
+}
+
+.assessment-card-description {
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  min-height: 42px;
+  margin: 10px 0 17px;
+  overflow: hidden;
+  color: #718096;
+  font-size: 13px;
+  line-height: 1.65;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.assessment-card-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  min-height: 47px;
+  margin-bottom: 16px;
+  padding: 11px 0;
+  border-top: 1px solid #eeeaf4;
+  border-bottom: 1px solid #eeeaf4;
+}
+
+.assessment-card-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.assessment-card-meta-item svg {
+  flex: 0 0 auto;
+  color: #a855f7;
+}
+
+.assessment-card-meta-divider {
+  width: 1px;
+  height: 17px;
+  margin: 0 14px;
+  background: #e8e3ef;
+}
+
+.assessment-start-button {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px 10px 15px;
+  border: 1px solid #eadcf9;
+  border-radius: 11px;
+  background: #f8f4ff;
+  color: #7c3aed;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.assessment-start-button:hover {
+  background: linear-gradient(135deg, #8b35d6 0%, #7c3aed 55%, #a33edb 100%);
+  border-color: #7c3aed;
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.22);
+}
+
+.assessment-start-button:active {
+  transform: translateY(1px);
+}
+
+.assessment-start-button:focus-visible {
+  outline: 3px solid rgba(124, 58, 237, 0.2);
+  outline-offset: 2px;
+}
+
+.assessment-start-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.assessment-start-icon {
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(124, 58, 237, 0.09);
+  transition:
+    background 0.22s ease,
+    transform 0.22s ease;
+}
+
+.assessment-start-button:hover .assessment-start-icon {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateX(2px);
+}
+
+@media (max-width: 950px) {
+  .assessment-card {
+    padding: 21px;
+  }
+
+  .assessment-card-title {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 640px) {
+  .assessment-card {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .assessment-card-top {
+    margin-bottom: 15px;
+  }
+
+  .assessment-card-icon {
+    width: 43px;
+    height: 43px;
+    flex-basis: 43px;
+  }
+
+  .assessment-card-meta {
+    gap: 0;
+  }
+
+  .assessment-card-meta-divider {
+    margin: 0 11px;
+  }
+
+  .assessment-card-meta-item {
+    font-size: 11px;
+  }
+
+  .assessment-start-button {
+    min-height: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .assessment-card,
+  .assessment-start-button,
+  .assessment-start-icon {
+    transition: none;
+  }
+
+  .assessment-card:hover {
+    transform: none;
+  }
+}

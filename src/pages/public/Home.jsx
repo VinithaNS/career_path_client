@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { Link } from "react-router-dom";
+
 import {
   ArrowRight,
   ClipboardList,
@@ -202,17 +204,17 @@ const Home = () => {
           <div className="hero-buttons">
             {/* EXPLORE CAREERS */}
 
-            <button type="button" className="btn-primary">
+            <Link to="/careers" className="btn-primary">
               Explore Careers
               <ArrowRight size={18} />
-            </button>
+            </Link>
 
             {/* TAKE ASSESSMENT */}
 
-            <button type="button" className="btn-secondary">
+            <Link to="/assessments" className="btn-secondary">
               Take Assessment
               <ClipboardList size={18} />
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -244,7 +246,7 @@ const Home = () => {
                 CAREERS
             ================================================= */}
 
-            <div className="stat-card">
+            <Link to="/careers" className="stat-card">
               <div className="stat-icon blue">
                 <Briefcase size={22} />
               </div>
@@ -254,13 +256,13 @@ const Home = () => {
 
                 <p>Career Options</p>
               </div>
-            </div>
+            </Link>
 
             {/* =================================================
                 COLLEGES
             ================================================= */}
 
-            <div className="stat-card">
+            <Link to="/colleges" className="stat-card">
               <div className="stat-icon green">
                 <Building2 size={22} />
               </div>
@@ -270,13 +272,13 @@ const Home = () => {
 
                 <p>Top Colleges</p>
               </div>
-            </div>
+            </Link>
 
             {/* =================================================
                 EXAMS
             ================================================= */}
 
-            <div className="stat-card">
+            <Link to="/exams" className="stat-card">
               <div className="stat-icon purple">
                 <ClipboardList size={22} />
               </div>
@@ -286,7 +288,7 @@ const Home = () => {
 
                 <p>Exams Covered</p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -301,7 +303,7 @@ const Home = () => {
               CAREERS
           ================================================= */}
 
-          <div className="quick-item">
+          <Link to="/careers" className="quick-item">
             <div className="quick-icon blue-icon">
               <Compass size={22} />
             </div>
@@ -311,13 +313,13 @@ const Home = () => {
 
               <p>Explore Options</p>
             </div>
-          </div>
+          </Link>
 
           {/* =================================================
               ROADMAPS
           ================================================= */}
 
-          <div className="quick-item">
+          <Link to="/roadmap" className="quick-item">
             <div className="quick-icon purple-icon">
               <Map size={22} />
             </div>
@@ -327,13 +329,13 @@ const Home = () => {
 
               <p>Step by Step</p>
             </div>
-          </div>
+          </Link>
 
           {/* =================================================
               COLLEGES
           ================================================= */}
 
-          <div className="quick-item">
+          <Link to="/colleges" className="quick-item">
             <div className="quick-icon green-icon">
               <GraduationCap size={22} />
             </div>
@@ -343,13 +345,13 @@ const Home = () => {
 
               <p>Find Best Fit</p>
             </div>
-          </div>
+          </Link>
 
           {/* =================================================
               EXAMS
           ================================================= */}
 
-          <div className="quick-item">
+          <Link to="/exams" className="quick-item">
             <div className="quick-icon orange-icon">
               <ClipboardList size={22} />
             </div>
@@ -359,13 +361,13 @@ const Home = () => {
 
               <p>Prepare Better</p>
             </div>
-          </div>
+          </Link>
 
           {/* =================================================
               ASSESSMENTS
           ================================================= */}
 
-          <div className="quick-item">
+          <Link to="/assessments" className="quick-item">
             <div className="quick-icon cyan-icon">
               <Brain size={22} />
             </div>
@@ -375,13 +377,13 @@ const Home = () => {
 
               <p>Know Yourself</p>
             </div>
-          </div>
+          </Link>
 
           {/* =================================================
               AI TOOLS
           ================================================= */}
 
-          <div className="quick-item">
+          <Link to="/ai-tools" className="quick-item">
             <div className="quick-icon pink-icon">
               <Bot size={22} />
             </div>
@@ -391,13 +393,13 @@ const Home = () => {
 
               <p>Smart Guidance</p>
             </div>
-          </div>
+          </Link>
 
           {/* =================================================
               RESOURCES
           ================================================= */}
 
-          <div className="quick-item">
+          <Link to="/resources" className="quick-item">
             <div className="quick-icon folder-icon">
               <FolderOpen size={22} />
             </div>
@@ -407,7 +409,7 @@ const Home = () => {
 
               <p>Learn More</p>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </section>

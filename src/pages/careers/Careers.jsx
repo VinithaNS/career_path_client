@@ -31,6 +31,29 @@ const formatLPA = (value) => {
   return Number.isInteger(rounded) ? `${rounded}` : rounded.toFixed(1);
 };
 
+/* =====================================================
+   DEMAND LEVEL HELPER
+   Maps whatever the API sends (or its absence) to a
+   label + CSS modifier so the badge always renders
+   sensibly.
+===================================================== */
+
+const getDemandInfo = (career) => {
+  const raw = (career?.demandLevel || career?.demand || "high")
+    .toString()
+    .toLowerCase();
+
+  if (raw.includes("low")) {
+    return { label: "Low demand", className: "low-demand" };
+  }
+
+  if (raw.includes("medium") || raw.includes("moderate")) {
+    return { label: "Medium demand", className: "medium-demand" };
+  }
+
+  return { label: "High demand", className: "high-demand" };
+};
+
 const Careers = () => {
   const navigate = useNavigate();
 
@@ -290,7 +313,7 @@ const Careers = () => {
                 cy="220"
                 r="7"
                 fill="var(--cp-paper)"
-                stroke="var(--cp-teal)"
+                stroke="var(--cp-pink)"
                 strokeWidth="2.5"
               />
               <circle
@@ -298,10 +321,10 @@ const Careers = () => {
                 cy="140"
                 r="7"
                 fill="var(--cp-paper)"
-                stroke="var(--cp-amber)"
+                stroke="var(--cp-purple)"
                 strokeWidth="2.5"
               />
-              <circle cx="200" cy="40" r="10" fill="var(--cp-amber)" />
+              <circle cx="200" cy="40" r="10" fill="var(--cp-pink)" />
               <path
                 d="M195 40h10M200 35v10"
                 stroke="var(--cp-paper-raised)"
@@ -422,6 +445,8 @@ const Careers = () => {
 
               const hasSalary = salaryMin || salaryMax;
 
+              const demand = getDemandInfo(career);
+
               return (
                 <article className="career-card" key={career._id}>
                   {/* Top row */}
@@ -451,9 +476,9 @@ const Careers = () => {
                   {/* Meta: demand + salary */}
 
                   <div className="career-meta">
-                    <div className="career-demand high-demand">
+                    <div className={`career-demand ${demand.className}`}>
                       <span className="demand-dot"></span>
-                      High demand
+                      {demand.label}
                     </div>
 
                     <div className="career-salary">

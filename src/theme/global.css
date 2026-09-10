@@ -1,0 +1,22 @@
+:root {
+  --cp-navy: #0b1f3a;
+  --cp-navy-light: #132e50;
+  --cp-gold: #d9a441;
+  --cp-gold-light: #f4d58d;
+
+  --cp-bg: #f5f7fa;
+  --cp-white: #ffffff;
+
+  --cp-text: #172033;
+  --cp-muted: #6b7280;
+
+  --cp-border: #e5e7eb;
+
+  --cp-success: #22a06b;
+  --cp-warning: #f59e0b;
+  --cp-danger: #dc4c4c;
+  --cp-info: #4285f4;
+
+  --cp-radius: 16px;
+  --cp-shadow: 0 8px 30px rgba(11, 31, 58, 0.08);
+}

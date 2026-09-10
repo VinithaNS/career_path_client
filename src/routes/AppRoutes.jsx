@@ -2,6 +2,10 @@ import { Routes, Route } from "react-router-dom";
 
 import Roadmap from "../components/roadmap/Roadmap";
 import RoadmapDetails from "../components/roadmap/RoadmapDetails";
+import AIConversation from "../pages/ai/AIConversation";
+import AIRecommendation from "../pages/ai/AIRecommendation";
+import AIReplaceTracker from "../pages/ai/AIReplaceTracker";
+import AISupport from "../pages/ai/AISupport";
 import AITools from "../pages/ai/AITools";
 import Assessments from "../pages/assessment/Assessment";
 import AssessmentDetails from "../pages/assessment/AssessmentDetails";
@@ -27,15 +31,26 @@ import ProtectedRoute from "./ProtectedRoute";
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* HOME */}
+      {/* =====================================================
+          PUBLIC HOME
+      ===================================================== */}
+
       <Route path="/" element={<Home />} />
 
-      {/* AUTH */}
+      {/* =====================================================
+          AUTHENTICATION
+      ===================================================== */}
+
       <Route path="/login" element={<Login />} />
+
       <Route path="/register" element={<Register />} />
+
       <Route path="/complete-profile" element={<CompleteProfile />} />
 
-      {/* PROFILE */}
+      {/* =====================================================
+          PROFILE
+      ===================================================== */}
+
       <Route
         path="/profile"
         element={
@@ -45,34 +60,142 @@ const AppRoutes = () => {
         }
       />
 
-      {/* CAREERS */}
+      {/* =====================================================
+          CAREERS
+      ===================================================== */}
+
       <Route path="/careers" element={<Careers />} />
+
       <Route path="/careers/:id" element={<CareerDetails />} />
 
-      {/* EDUCATION */}
+      {/* =====================================================
+          EDUCATION
+      ===================================================== */}
+
       <Route path="/education" element={<Education />} />
+
       <Route path="/education/:id" element={<CourseDetails />} />
 
-      {/* ROADMAP */}
+      {/* =====================================================
+          ROADMAP
+      ===================================================== */}
+
       <Route path="/roadmap" element={<Roadmap />} />
+
       <Route path="/roadmap/:id" element={<RoadmapDetails />} />
 
-      {/* COLLEGES */}
+      {/* =====================================================
+          COLLEGES
+      ===================================================== */}
+
       <Route path="/colleges" element={<Colleges />} />
+
       <Route path="/colleges/:id" element={<CollegeDetails />} />
 
-      {/* EXAMS */}
+      {/* =====================================================
+          EXAMS
+      ===================================================== */}
+
       <Route path="/exams" element={<Exams />} />
+
       <Route path="/exams/:id" element={<ExamDetails />} />
 
-      {/* RESOURCES */}
+      {/* =====================================================
+          RESOURCES
+      ===================================================== */}
+
       <Route path="/resources" element={<Resources />} />
 
-      {/* AI TOOLS */}
-      <Route path="/ai-tools" element={<AITools />} />
+      {/* =====================================================
+          AI TOOLS
+      ===================================================== */}
 
-      {/* ASSESSMENTS */}
+      {/* -----------------------------------------------------
+          AI TOOLS MAIN PAGE
+          URL: /ai-tools
+      ----------------------------------------------------- */}
+
+      <Route
+        path="/ai-tools"
+        element={
+          <ProtectedRoute requireProfile>
+            <AITools />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* -----------------------------------------------------
+          AI CONVERSATION
+          URL: /ai-tools/conversation
+      ----------------------------------------------------- */}
+
+      <Route
+        path="/ai-tools/conversation"
+        element={
+          <ProtectedRoute requireProfile>
+            <AIConversation />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* -----------------------------------------------------
+          AI RECOMMENDATION
+          URL: /ai-tools/recommendation
+      ----------------------------------------------------- */}
+
+      <Route
+        path="/ai-tools/recommendation"
+        element={
+          <ProtectedRoute requireProfile>
+            <AIRecommendation />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* -----------------------------------------------------
+          AI IMPACT TRACKER
+          URL: /ai-tools/impact-tracker
+      ----------------------------------------------------- */}
+
+      <Route
+        path="/ai-tools/impact-tracker"
+        element={
+          <ProtectedRoute requireProfile>
+            <AIReplaceTracker />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* -----------------------------------------------------
+          AI SUPPORT
+          URL: /ai-tools/support
+      ----------------------------------------------------- */}
+
+      <Route
+        path="/ai-tools/support"
+        element={
+          <ProtectedRoute requireProfile>
+            <AISupport />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* =====================================================
+          ASSESSMENTS
+      ===================================================== */}
+
+      {/* -----------------------------------------------------
+          ASSESSMENT LIST
+          URL: /assessments
+      ----------------------------------------------------- */}
+
       <Route path="/assessments" element={<Assessments />} />
+
+      {/* -----------------------------------------------------
+          ASSESSMENT DETAILS
+          URL: /assessments/:id
+      ----------------------------------------------------- */}
+
       <Route
         path="/assessments/:id"
         element={
@@ -81,6 +204,12 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+      {/* -----------------------------------------------------
+          TAKE ASSESSMENT
+          URL: /assessments/attempt/:attemptId
+      ----------------------------------------------------- */}
+
       <Route
         path="/assessments/attempt/:attemptId"
         element={
@@ -89,9 +218,19 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+      {/* -----------------------------------------------------
+          ASSESSMENT RESULT
+          URL: /assessments/results/:resultId
+      ----------------------------------------------------- */}
+
       <Route
         path="/assessments/results/:resultId"
-        element={<AssessmentResult />}
+        element={
+          <ProtectedRoute requireProfile>
+            <AssessmentResult />
+          </ProtectedRoute>
+        }
       />
     </Routes>
   );
