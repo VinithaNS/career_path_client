@@ -6,7 +6,7 @@ export const getCareerRoadmaps = async () => {
   return response.data;
 };
 
-// Get career roadmap by ID
+// Get Career Roadmap by ID
 export const getCareerRoadmapById = async (roadmapId) => {
   const response = await api.get(`/career-roadmaps/${roadmapId}`);
 
