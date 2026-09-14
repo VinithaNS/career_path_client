@@ -10,7 +10,7 @@ import {
 } from "../../services/educationService";
 import CourseCard from "../../components/cards/CourseCard";
 
-import "./Education.css";
+import "./education.css";
 
 const Education = () => {
   const navigate = useNavigate();
