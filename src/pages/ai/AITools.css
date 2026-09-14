@@ -1,10 +1,11 @@
 /* =====================================================
    AI TOOLS PAGE
+   Theme: Purple/Pink (matches CareerPath homepage)
 ===================================================== */
 
 .ai-tools-page {
   min-height: calc(100vh - 80px);
-  background: #f5f7fa;
+  background: #fdf2f8;
 }
 
 /* =====================================================
@@ -14,7 +15,7 @@
 .ai-tools-header {
   width: 100%;
   background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #f3e8f5;
 }
 
 .ai-tools-header-content {
@@ -38,8 +39,8 @@
   align-items: center;
   justify-content: center;
 
-  background: #0b1f3a;
-  color: #d9a441;
+  background: linear-gradient(135deg, #9333ea, #ec4899);
+  color: #ffffff;
 
   border-radius: 16px;
 }
@@ -49,7 +50,7 @@
 
   margin-bottom: 6px;
 
-  color: #d9a441;
+  color: #ec4899;
 
   font-size: 12px;
   font-weight: 700;
@@ -60,7 +61,7 @@
 .ai-tools-header h1 {
   margin: 0;
 
-  color: #0b1f3a;
+  color: #1f1035;
 
   font-size: 42px;
   line-height: 1.2;
@@ -104,7 +105,7 @@
 .ai-tools-intro h2 {
   margin: 0 0 8px;
 
-  color: #0b1f3a;
+  color: #1f1035;
 
   font-size: 26px;
   line-height: 1.3;
@@ -155,11 +156,11 @@
 
   background: #ffffff;
 
-  border: 1px solid #e5e7eb;
+  border: 1px solid #f3e8f5;
 
   border-radius: 18px;
 
-  box-shadow: 0 8px 30px rgba(11, 31, 58, 0.08);
+  box-shadow: 0 8px 30px rgba(147, 51, 234, 0.08);
 
   visibility: visible !important;
   opacity: 1 !important;
@@ -176,7 +177,7 @@
 .ai-tool-card:hover {
   transform: translateY(-4px);
 
-  box-shadow: 0 14px 35px rgba(11, 31, 58, 0.14);
+  box-shadow: 0 14px 35px rgba(147, 51, 234, 0.16);
 }
 
 /* =====================================================
@@ -209,9 +210,9 @@
   align-items: center;
   justify-content: center;
 
-  background: #0b1f3a;
+  background: linear-gradient(135deg, #9333ea, #ec4899);
 
-  color: #d9a441;
+  color: #ffffff;
 
   border-radius: 14px;
 }
@@ -228,9 +229,9 @@
 
   padding: 6px 11px;
 
-  background: #fff8e8;
+  background: #fce7f3;
 
-  color: #9a711c;
+  color: #be185d;
 
   border-radius: 20px;
 
@@ -251,7 +252,7 @@
 .ai-tool-card-content h3 {
   margin: 0 0 10px;
 
-  color: #0b1f3a;
+  color: #1f1035;
 
   font-size: 21px;
   font-weight: 700;
@@ -295,7 +296,7 @@
 
   border-radius: 10px;
 
-  background: #0b1f3a;
+  background: linear-gradient(135deg, #9333ea, #ec4899);
 
   color: #ffffff;
 
@@ -308,14 +309,19 @@
 
   visibility: visible !important;
   opacity: 1 !important;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .ai-tool-button:hover {
-  background: #132e50;
+  opacity: 0.92;
+  transform: translateY(-1px);
 }
 
 .ai-tool-button svg {
-  color: #d9a441;
+  color: #ffffff;
 }
 
 /* =====================================================
@@ -339,11 +345,11 @@
 
   background: #ffffff;
 
-  border: 1px solid #e5e7eb;
+  border: 1px solid #f3e8f5;
 
   border-radius: 16px;
 
-  box-shadow: 0 5px 20px rgba(11, 31, 58, 0.05);
+  box-shadow: 0 5px 20px rgba(147, 51, 234, 0.06);
 }
 
 .ai-tools-info-icon {
@@ -356,9 +362,9 @@
   align-items: center;
   justify-content: center;
 
-  background: #fff8e8;
+  background: #fce7f3;
 
-  color: #d9a441;
+  color: #ec4899;
 
   border-radius: 12px;
 }
@@ -366,7 +372,7 @@
 .ai-tools-info h3 {
   margin: 0 0 6px;
 
-  color: #0b1f3a;
+  color: #1f1035;
 
   font-size: 18px;
 }

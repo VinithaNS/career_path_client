@@ -1,6 +1,6 @@
 .exams-page {
   min-height: 100vh;
-  background: #f7f9fc;
+  background: #fdf2f8;
   padding: 42px 20px 80px;
 }
 .exams-container {
@@ -12,8 +12,8 @@
   min-height: 260px;
   padding: 48px 58px;
   border-radius: 28px;
-  background: linear-gradient(135deg, #fff7ed 0%, #f4f8ff 55%, #eef9f6 100%);
-  border: 1px solid #f3e5d3;
+  background: linear-gradient(135deg, #fde8f3 0%, #f4eeff 55%, #f3e8ff 100%);
+  border: 1px solid #f0e5f5;
 }
 .exams-hero-icon {
   width: 62px;
@@ -23,13 +23,13 @@
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  color: #ea580c;
-  box-shadow: 0 10px 30px rgba(234, 88, 12, 0.12);
+  color: #9333ea;
+  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.15);
   margin-bottom: 22px;
 }
 .exams-eyebrow {
   display: block;
-  color: #ea580c;
+  color: #db2777;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 1.5px;
@@ -37,14 +37,17 @@
 }
 .exams-hero h1 {
   margin: 0;
-  color: #172033;
+  color: #1e1b2e;
   font-size: clamp(32px, 4.5vw, 48px);
   line-height: 1.12;
   letter-spacing: -1.4px;
   max-width: 700px;
 }
 .exams-hero h1 span {
-  color: #ea580c;
+  background: linear-gradient(135deg, #9333ea 0%, #ec1c8d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 .exams-hero p {
   max-width: 600px;
@@ -60,16 +63,16 @@
 .exams-search-box {
   min-height: 58px;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #e9d5ec;
   border-radius: 16px;
   display: flex;
   align-items: center;
   padding: 0 19px;
   gap: 13px;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 6px 20px rgba(147, 51, 234, 0.06);
 }
 .exams-search-box svg {
-  color: #94a3b8;
+  color: #a78bda;
   flex-shrink: 0;
 }
 .exams-search-box input {
@@ -77,11 +80,14 @@
   border: none;
   outline: none;
   background: transparent;
-  color: #172033;
+  color: #1e1b2e;
   font-size: 15px;
 }
+.exams-search-box input::placeholder {
+  color: #b8a9c9;
+}
 .search-spinner {
-  color: #ea580c !important;
+  color: #ec1c8d !important;
 }
 
 .exams-type-tabs {
@@ -91,9 +97,9 @@
   flex-wrap: wrap;
 }
 .exams-type-tabs button {
-  border: 1px solid #dce4ee;
+  border: 1px solid #ecdcef;
   background: #ffffff;
-  color: #64748b;
+  color: #6b7280;
   border-radius: 12px;
   padding: 11px 19px;
   font-size: 14px;
@@ -102,14 +108,14 @@
   transition: 0.2s ease;
 }
 .exams-type-tabs button:hover {
-  border-color: #fdba74;
-  color: #ea580c;
+  border-color: #f0abfc;
+  color: #9333ea;
 }
 .exams-type-tabs button.active {
-  background: #ea580c;
+  background: linear-gradient(135deg, #9333ea 0%, #ec1c8d 100%);
   color: #ffffff;
-  border-color: #ea580c;
-  box-shadow: 0 8px 18px rgba(234, 88, 12, 0.22);
+  border-color: transparent;
+  box-shadow: 0 8px 18px rgba(219, 39, 119, 0.25);
 }
 
 .exams-section-heading {
@@ -122,7 +128,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  color: #ea580c;
+  color: #db2777;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1.2px;
@@ -130,15 +136,15 @@
 }
 .exams-section-heading h2 {
   margin: 0;
-  color: #172033;
+  color: #1e1b2e;
   font-size: 27px;
   letter-spacing: -0.6px;
 }
 .exams-count {
   padding: 9px 14px;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  color: #64748b;
+  border: 1px solid #ecdcef;
+  color: #6b7280;
   border-radius: 10px;
   font-size: 13px;
   font-weight: 700;
@@ -152,17 +158,17 @@
 
 .exam-card {
   background: #ffffff;
-  border: 1px solid #e5eaf1;
+  border: 1px solid #f0e5f5;
   border-radius: 19px;
   padding: 22px;
-  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.045);
+  box-shadow: 0 8px 25px rgba(147, 51, 234, 0.05);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
 }
 .exam-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.09);
+  box-shadow: 0 18px 38px rgba(147, 51, 234, 0.12);
 }
 .exam-card-top {
   display: flex;
@@ -177,20 +183,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff7ed;
-  color: #ea580c;
+  background: #fce7f3;
+  color: #9333ea;
 }
 .exam-type-badge {
   padding: 5px 10px;
   border-radius: 8px;
   font-size: 10px;
   font-weight: 800;
-  background: #fff7ed;
-  color: #ea580c;
+  background: #fce7f3;
+  color: #db2777;
 }
 .exam-code {
   display: block;
-  color: #94a3b8;
+  color: #b8a9c9;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -198,7 +204,7 @@
 }
 .exam-card h3 {
   margin: 0 0 8px;
-  color: #172033;
+  color: #1e1b2e;
   font-size: 18px;
   line-height: 1.3;
 }
@@ -206,7 +212,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #2563eb;
+  color: #9333ea;
   font-size: 12px;
   font-weight: 700;
   margin-bottom: 10px;
@@ -223,8 +229,8 @@
   display: flex;
   gap: 18px;
   padding: 12px 0;
-  border-top: 1px solid #edf1f5;
-  border-bottom: 1px solid #edf1f5;
+  border-top: 1px solid #f5edf7;
+  border-bottom: 1px solid #f5edf7;
   margin-bottom: 16px;
 }
 .exam-card-meta > div {
@@ -233,12 +239,12 @@
   gap: 2px;
 }
 .exam-card-meta span {
-  color: #94a3b8;
+  color: #b8a9c9;
   font-size: 10px;
   font-weight: 700;
 }
 .exam-card-meta strong {
-  color: #172033;
+  color: #1e1b2e;
   font-size: 12px;
 }
 
@@ -246,8 +252,8 @@
   width: 100%;
   border: none;
   border-radius: 11px;
-  background: #fff7ed;
-  color: #ea580c;
+  background: #fce7f3;
+  color: #db2777;
   padding: 12px 14px;
   display: flex;
   align-items: center;
@@ -258,14 +264,14 @@
   transition: 0.2s ease;
 }
 .exam-view-button:hover {
-  background: #ea580c;
+  background: linear-gradient(135deg, #9333ea 0%, #ec1c8d 100%);
   color: #ffffff;
 }
 
 .exams-error,
 .exams-empty {
   background: #ffffff;
-  border: 1px solid #e5eaf1;
+  border: 1px solid #f0e5f5;
   border-radius: 18px;
   padding: 40px 25px;
   text-align: center;
@@ -285,7 +291,7 @@
   align-items: center;
   justify-content: center;
   gap: 14px;
-  color: #ea580c;
+  color: #9333ea;
   text-align: center;
 }
 

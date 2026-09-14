@@ -1,20 +1,20 @@
 /* ==========================================================================
    CareerPath — Resources page styles
    Link with: <link rel="stylesheet" href="resources.css">
-   Fonts used: Source Serif 4 (headings), Inter (body/UI)
+   Fonts used: Inter (headings + body/UI)
    ========================================================================== */
 
 :root {
-  --navy: #16324f;
-  --navy-deep: #0e2138;
-  --gold: #b8912f;
-  --gold-light: #f4e9d2;
-  --paper: #faf8f3;
+  --navy: #9333ea; /* primary brand purple (was navy) */
+  --navy-deep: #1e1b2e; /* dark heading text (was navy-deep) */
+  --gold: #ec1c8d; /* accent magenta (was gold) */
+  --gold-light: #fce7f3; /* light accent bg (was gold-light) */
+  --paper: #fdf2f8; /* page background (was paper) */
   --card: #ffffff;
-  --ink: #23241f;
-  --ink-soft: #5b5b54;
-  --line: #e4dfd2;
-  --line-soft: #eeeae0;
+  --ink: #1e1b2e;
+  --ink-soft: #64748b;
+  --line: #f0e5f5;
+  --line-soft: #f5edf7;
   --radius: 10px;
 }
 
@@ -37,7 +37,11 @@ h1,
 h2,
 h3,
 .brand-name {
-  font-family: "Source Serif 4", Georgia, serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    sans-serif;
+  font-weight: 700;
 }
 
 a {
@@ -66,11 +70,11 @@ a {
   width: 40px;
   height: 40px;
   border-radius: 9px;
-  background: var(--navy);
+  background: linear-gradient(135deg, #9333ea 0%, #ec1c8d 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold-light);
+  color: #ffffff;
   flex-shrink: 0;
 }
 
@@ -81,7 +85,7 @@ a {
 
 .brand-name {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--navy-deep);
   line-height: 1.1;
 }
@@ -147,7 +151,7 @@ a {
 }
 
 .nav-search input::placeholder {
-  color: #a8a597;
+  color: #c9a9c0;
 }
 
 .avatar-btn {
@@ -171,9 +175,10 @@ a {
 
 .page-head h1 {
   font-size: 36px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--navy-deep);
   margin: 0 0 10px;
+  letter-spacing: -0.8px;
 }
 
 .page-head p {
@@ -194,6 +199,7 @@ a {
   border-radius: var(--radius);
   padding: 12px 16px;
   margin-bottom: 18px;
+  box-shadow: 0 6px 20px rgba(147, 51, 234, 0.05);
 }
 
 .search-row svg {
@@ -212,7 +218,7 @@ a {
 }
 
 .search-row input::placeholder {
-  color: #a8a597;
+  color: #c9a9c0;
 }
 
 .filter-pills {
@@ -224,19 +230,26 @@ a {
 
 .pill {
   font-size: 13.5px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 8px 18px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--card);
   color: var(--ink-soft);
   cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pill:hover {
+  border-color: #f0abfc;
+  color: var(--navy);
 }
 
 .pill.active {
-  background: var(--navy);
-  border-color: var(--navy);
+  background: linear-gradient(135deg, #9333ea 0%, #ec1c8d 100%);
+  border-color: transparent;
   color: #fff;
+  box-shadow: 0 8px 18px rgba(219, 39, 119, 0.25);
 }
 
 /* ---------- Section label ---------- */
@@ -249,7 +262,7 @@ a {
 
 .section-label h2 {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--navy-deep);
   margin: 0;
 }
@@ -267,6 +280,7 @@ a {
 }
 
 .resource-card {
+  position: relative;
   background: var(--card);
   border: 1px solid var(--line);
   border-left: 3px solid var(--gold);
@@ -275,12 +289,31 @@ a {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: border-color 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
 }
 
 .resource-card:hover {
   border-color: var(--navy);
   border-left-color: var(--gold);
+  box-shadow: 0 14px 30px rgba(147, 51, 234, 0.1);
+  transform: translateY(-3px);
+}
+
+.featured-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #9333ea 0%, #ec1c8d 100%);
+  color: #ffffff;
 }
 
 .resource-icon {
@@ -296,7 +329,7 @@ a {
 
 .resource-card h3 {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--navy-deep);
   margin: 0;
   line-height: 1.3;
@@ -336,8 +369,29 @@ a {
   color: #1f4c8c;
 }
 .tag.video {
-  background: #f4e9d2;
-  color: #8c6b1f;
+  background: #fce7f3;
+  color: #a3186f;
+}
+.tag.article {
+  background: #eef2ff;
+  color: #4338ca;
+}
+.tag.website {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+.tag.document {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+.tag.book {
+  background: #fef3c7;
+  color: #92400e;
+}
+.tag.other,
+.tag.category {
+  background: var(--gold-light);
+  color: var(--navy);
 }
 
 .card-footer {
@@ -369,6 +423,62 @@ a {
 }
 .card-footer a:hover {
   color: var(--gold);
+}
+
+/* ---------- Loading / empty / error states ---------- */
+.resource-skeleton {
+  height: 190px;
+  border-radius: var(--radius);
+  background: linear-gradient(
+    100deg,
+    var(--card) 30%,
+    var(--gold-light) 50%,
+    var(--card) 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border: 1px solid var(--line);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.state-box {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.state-box svg {
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+.state-box .title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-deep);
+  margin: 0 0 6px;
+}
+
+.state-box .hint {
+  font-size: 13.5px;
+  margin: 0;
+}
+
+.state-box.error {
+  color: #8c2f2f;
+  border-color: #fcebeb;
+  background: #fdf6f6;
 }
 
 /* ---------- Responsive ---------- */

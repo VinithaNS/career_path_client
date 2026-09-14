@@ -1,0 +1,560 @@
+/* ==========================================================
+   CourseLearningPath.css
+   Theme: CareerPath violet → magenta brand
+   ========================================================== */
+
+.clp {
+  --cp-ink: #1e1147;
+  --cp-muted: #7a7195;
+  --cp-violet: #7c3aed;
+  --cp-magenta: #ec4899;
+  --cp-line: #ece7f7;
+  --cp-mint: #12b76a;
+  --cp-surface: #ffffff;
+  --cp-chip-violet-bg: #f3effb;
+  --cp-chip-magenta-bg: #fdeef6;
+  --cp-chip-mint-bg: #eef9f2;
+
+  width: 100%;
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #f1e9ff 0%, transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, #fde7f3 0%, transparent 55%),
+    #faf8fd;
+  color: var(--cp-ink);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+.clp-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* used when this component is embedded inside another page's own
+   section (e.g. the Home.jsx "Course Details & Learning Path" block) —
+   drops the full-bleed background/min-height and outer padding so it
+   inherits the host section's spacing instead */
+.clp--embedded {
+  min-height: 0;
+  background: none;
+}
+
+.clp--embedded .clp-inner {
+  max-width: none;
+  padding: 0;
+}
+
+/* ---------- header ---------- */
+
+.clp-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--cp-violet);
+  margin: 0;
+}
+
+.clp-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 4px 0 0;
+}
+
+.clp-title-gradient {
+  background: linear-gradient(100deg, var(--cp-violet), var(--cp-magenta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.clp-subtitle {
+  max-width: 520px;
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: var(--cp-muted);
+}
+
+/* ---------- error banner ---------- */
+
+.clp-error {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 13px;
+  background: var(--cp-chip-magenta-bg);
+  color: #b0245a;
+}
+
+/* ---------- layout ---------- */
+
+.clp-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr 1fr;
+  gap: 20px;
+  margin-top: 28px;
+}
+
+@media (max-width: 960px) {
+  .clp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.clp-card {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-line);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(30, 17, 71, 0.04);
+}
+
+/* ---------- left: search + list ---------- */
+
+.clp-list-card {
+  padding: 12px;
+  align-self: start;
+}
+
+.clp-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--cp-line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.clp-search svg {
+  color: var(--cp-muted);
+  flex-shrink: 0;
+}
+
+.clp-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--cp-ink);
+}
+
+.clp-search input::placeholder {
+  color: var(--cp-muted);
+}
+
+.clp-list {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.clp-skill-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 10px 12px;
+  text-align: left;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.clp-skill-row:hover {
+  background: #faf9fe;
+}
+
+.clp-skill-row.is-active {
+  background: linear-gradient(
+    90deg,
+    rgba(124, 58, 237, 0.07),
+    rgba(236, 72, 153, 0.05)
+  );
+  box-shadow: inset 3px 0 0 var(--cp-violet);
+}
+
+.clp-skill-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--cp-chip-violet-bg);
+  color: var(--cp-violet);
+}
+
+.clp-skill-row.is-active .clp-skill-icon {
+  background: linear-gradient(135deg, var(--cp-violet), var(--cp-magenta));
+  color: #fff;
+}
+
+.clp-skill-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #3e3766;
+}
+
+.clp-skill-row.is-active .clp-skill-name {
+  color: var(--cp-ink);
+}
+
+.clp-empty,
+.clp-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 32px 12px;
+  font-size: 13px;
+  color: var(--cp-muted);
+  text-align: center;
+}
+
+.clp-loading {
+  flex-direction: row;
+}
+
+/* ---------- middle: detail card ---------- */
+
+.clp-detail-card {
+  padding: 20px;
+}
+
+.clp-detail-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.clp-detail-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  width: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--cp-violet), var(--cp-magenta));
+  color: #fff;
+}
+
+.clp-detail-icon img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.clp-detail-name {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.clp-detail-desc {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--cp-muted);
+}
+
+.clp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.clp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.clp-badge--violet {
+  background: var(--cp-chip-violet-bg);
+  color: var(--cp-violet);
+}
+
+.clp-badge--magenta {
+  background: var(--cp-chip-magenta-bg);
+  color: var(--cp-magenta);
+}
+
+.clp-badge--mint {
+  background: var(--cp-chip-mint-bg);
+  color: var(--cp-mint);
+}
+
+.clp-divider {
+  height: 1px;
+  width: 100%;
+  background: var(--cp-line);
+  margin: 16px 0;
+  border: none;
+}
+
+.clp-section-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 12px;
+}
+
+.clp-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.clp-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #3e3766;
+}
+
+.clp-checklist svg {
+  color: var(--cp-mint);
+  flex-shrink: 0;
+}
+
+.clp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.clp-tag {
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11.5px;
+  font-weight: 500;
+  background: var(--cp-chip-violet-bg);
+  color: #5b3aa8;
+}
+
+.clp-roadmap-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  border-radius: 12px;
+  padding: 11px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(100deg, var(--cp-violet), var(--cp-magenta));
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.clp-roadmap-btn:hover {
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.25);
+  transform: translateY(-1px);
+}
+
+.clp-roadmap-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ---------- right: video panel ---------- */
+
+.clp-video-card {
+  overflow: hidden;
+}
+
+.clp-video-player {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, #241454 0%, #3b1b72 45%, #5a1e5e 100%);
+}
+
+.clp-video-player-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.clp-play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 56px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--cp-violet);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 120ms ease;
+  text-decoration: none;
+}
+
+.clp-play-btn:hover {
+  transform: scale(1.06);
+}
+
+.clp-video-title {
+  max-width: 85%;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clp-duration-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.clp-video-empty {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.clp-video-list-wrap {
+  padding: 16px;
+}
+
+.clp-video-list-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.clp-video-list-label svg {
+  color: #e1306c;
+}
+
+.clp-video-list {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.clp-video-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+
+.clp-video-row:hover {
+  background: #faf9fe;
+}
+
+.clp-video-row-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.clp-video-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  width: 28px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--cp-chip-violet-bg);
+  color: var(--cp-violet);
+}
+
+.clp-video-text {
+  min-width: 0;
+}
+
+.clp-video-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #3e3766;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clp-video-channel {
+  display: block;
+  font-size: 11.5px;
+  color: var(--cp-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clp-video-duration {
+  flex-shrink: 0;
+  font-size: 11.5px;
+  color: var(--cp-muted);
+}
+
+.clp-video-empty-list {
+  padding: 16px 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--cp-muted);
+}
+
+/* ---------- spinner ---------- */
+
+.clp-spin {
+  animation: clp-spin-anim 900ms linear infinite;
+}
+
+@keyframes clp-spin-anim {
+  to {
+    transform: rotate(360deg);
+  }
+}

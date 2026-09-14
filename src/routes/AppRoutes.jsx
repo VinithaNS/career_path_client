@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
+import CourseLearningPath from "../components/courseLearningPath/CourseLearningPath";
+import DepartmentDetails from "../components/department/DepartmentDetails";
+import EleventhGroupDetails from "../components/eleventhGroup/EleventhGroupDetails";
 import Roadmap from "../components/roadmap/Roadmap";
 import RoadmapDetails from "../components/roadmap/RoadmapDetails";
 import AIConversation from "../pages/ai/AIConversation";
@@ -18,8 +21,10 @@ import CareerDetails from "../pages/careers/CareerDetails";
 import Careers from "../pages/careers/Careers";
 import CollegeDetails from "../pages/colleges/CollegeDetails";
 import Colleges from "../pages/colleges/Colleges";
+import DepartmentsPage from "../pages/department/DepartmentPage";
 import CourseDetails from "../pages/education/CourseDetails";
 import Education from "../pages/education/Education";
+import EleventhGroupsPage from "../pages/eleventhGroup/EleventhGroupsPage";
 import Exams from "../pages/exams/Exam";
 import ExamDetails from "../pages/exams/ExamDetails";
 import MyProfile from "../pages/profile/MyProfile";
@@ -32,7 +37,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* =====================================================
-          PUBLIC HOME
+          HOME
       ===================================================== */}
 
       <Route path="/" element={<Home />} />
@@ -76,6 +81,10 @@ const AppRoutes = () => {
 
       <Route path="/education/:id" element={<CourseDetails />} />
 
+      {/* Course Details & Learning Path panel (search, fundamentals, videos) */}
+
+      <Route path="/education/learning-path" element={<CourseLearningPath />} />
+
       {/* =====================================================
           ROADMAP
       ===================================================== */}
@@ -83,6 +92,26 @@ const AppRoutes = () => {
       <Route path="/roadmap" element={<Roadmap />} />
 
       <Route path="/roadmap/:id" element={<RoadmapDetails />} />
+
+      {/* =====================================================
+          11TH GROUP
+      ===================================================== */}
+
+      <Route path="/eleventh-groups" element={<EleventhGroupsPage />} />
+
+      <Route path="/eleventh-groups/:id" element={<EleventhGroupDetails />} />
+
+      {/* =====================================================
+          DEPARTMENTS
+      ===================================================== */}
+
+      {/* All Departments */}
+
+      <Route path="/departments" element={<DepartmentsPage />} />
+
+      {/* Individual Department */}
+
+      <Route path="/departments/:slug" element={<DepartmentDetails />} />
 
       {/* =====================================================
           COLLEGES
@@ -108,12 +137,8 @@ const AppRoutes = () => {
 
       {/* =====================================================
           AI TOOLS
+          LOGIN + PROFILE REQUIRED
       ===================================================== */}
-
-      {/* -----------------------------------------------------
-          AI TOOLS MAIN PAGE
-          URL: /ai-tools
-      ----------------------------------------------------- */}
 
       <Route
         path="/ai-tools"
@@ -124,11 +149,6 @@ const AppRoutes = () => {
         }
       />
 
-      {/* -----------------------------------------------------
-          AI CONVERSATION
-          URL: /ai-tools/conversation
-      ----------------------------------------------------- */}
-
       <Route
         path="/ai-tools/conversation"
         element={
@@ -137,11 +157,6 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
-      {/* -----------------------------------------------------
-          AI RECOMMENDATION
-          URL: /ai-tools/recommendation
-      ----------------------------------------------------- */}
 
       <Route
         path="/ai-tools/recommendation"
@@ -152,11 +167,6 @@ const AppRoutes = () => {
         }
       />
 
-      {/* -----------------------------------------------------
-          AI IMPACT TRACKER
-          URL: /ai-tools/impact-tracker
-      ----------------------------------------------------- */}
-
       <Route
         path="/ai-tools/impact-tracker"
         element={
@@ -165,11 +175,6 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
-
-      {/* -----------------------------------------------------
-          AI SUPPORT
-          URL: /ai-tools/support
-      ----------------------------------------------------- */}
 
       <Route
         path="/ai-tools/support"
@@ -184,17 +189,11 @@ const AppRoutes = () => {
           ASSESSMENTS
       ===================================================== */}
 
-      {/* -----------------------------------------------------
-          ASSESSMENT LIST
-          URL: /assessments
-      ----------------------------------------------------- */}
+      {/* Assessment list */}
 
       <Route path="/assessments" element={<Assessments />} />
 
-      {/* -----------------------------------------------------
-          ASSESSMENT DETAILS
-          URL: /assessments/:id
-      ----------------------------------------------------- */}
+      {/* Assessment details */}
 
       <Route
         path="/assessments/:id"
@@ -205,10 +204,7 @@ const AppRoutes = () => {
         }
       />
 
-      {/* -----------------------------------------------------
-          TAKE ASSESSMENT
-          URL: /assessments/attempt/:attemptId
-      ----------------------------------------------------- */}
+      {/* Take assessment */}
 
       <Route
         path="/assessments/attempt/:attemptId"
@@ -219,10 +215,7 @@ const AppRoutes = () => {
         }
       />
 
-      {/* -----------------------------------------------------
-          ASSESSMENT RESULT
-          URL: /assessments/results/:resultId
-      ----------------------------------------------------- */}
+      {/* Assessment result */}
 
       <Route
         path="/assessments/results/:resultId"

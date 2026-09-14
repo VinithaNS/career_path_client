@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const SERVER_BASE_URL = "http://localhost:5000";
+// export const SERVER_BASE_URL = "http://localhost:5000";
+export const SERVER_BASE_URL = "https://career-path-server-bn1a.onrender.com";
 
 const api = axios.create({
   baseURL: `${SERVER_BASE_URL}/api`

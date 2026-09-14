@@ -1,0 +1,658 @@
+/* =========================================================
+   DEPARTMENT ROADMAPS
+   Light Purple Education Theme
+========================================================= */
+
+.dept-section {
+  width: 100%;
+  padding: 72px 24px;
+  background: #ffffff;
+}
+
+.dept-container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.dept-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 36px;
+}
+
+.dept-header-content {
+  max-width: 700px;
+}
+
+.dept-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  margin-bottom: 14px;
+
+  border: 1px solid #e9d5ff;
+  border-radius: 999px;
+
+  background: #faf5ff;
+
+  color: #7e22ce;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.dept-title {
+  margin: 0;
+
+  color: #241438;
+
+  font-size: 34px;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.dept-subtitle {
+  max-width: 650px;
+
+  margin: 12px 0 0;
+
+  color: #6b6175;
+
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   VIEW ALL BUTTON
+========================================================= */
+
+.dept-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  flex-shrink: 0;
+
+  padding: 10px 16px;
+
+  border: 1px solid #e9d5ff;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #7e22ce;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.dept-view-all:hover {
+  background: #faf5ff;
+  border-color: #d8b4fe;
+  transform: translateY(-1px);
+}
+
+.dept-view-all svg {
+  transition: transform 0.2s ease;
+}
+
+.dept-view-all:hover svg {
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.dept-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.dept-card {
+  position: relative;
+
+  min-height: 245px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 22px;
+
+  border: 1px solid rgba(126, 34, 206, 0.08);
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.dept-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: currentColor;
+
+  opacity: 0.5;
+}
+
+.dept-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(126, 34, 206, 0.16);
+
+  box-shadow: 0 14px 35px rgba(91, 33, 182, 0.08);
+}
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.dept-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 44px;
+}
+
+.dept-card-icon {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+}
+
+.dept-card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* =========================================================
+   POPULAR
+========================================================= */
+
+.dept-popular-badge {
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.75);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.02em;
+}
+
+/* =========================================================
+   CARD BODY
+========================================================= */
+
+.dept-card-body {
+  flex: 1;
+
+  padding-top: 20px;
+}
+
+.dept-card-name {
+  margin: 0;
+
+  color: #241438;
+
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.dept-card-tags {
+  margin: 7px 0 0;
+
+  color: #6b6175;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.dept-card-description {
+  display: -webkit-box;
+
+  margin: 10px 0 0;
+
+  overflow: hidden;
+
+  color: #756b7e;
+
+  font-size: 12px;
+  line-height: 1.55;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* =========================================================
+   CARD BUTTON
+========================================================= */
+
+.dept-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  align-self: flex-start;
+
+  margin-top: 18px;
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: gap 0.2s ease;
+}
+
+.dept-card-link:hover {
+  gap: 9px;
+}
+
+.dept-card-link svg {
+  transition: transform 0.2s ease;
+}
+
+.dept-card-link:hover svg {
+  transform: translateX(2px);
+}
+
+/* =========================================================
+   COLOR VARIANTS
+========================================================= */
+
+.dept-color-blue {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+.dept-color-blue .dept-card-icon {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.dept-color-blue .dept-card-link {
+  color: #7c3aed;
+}
+
+.dept-color-teal {
+  background: #f5f3ff;
+  color: #8b5cf6;
+}
+
+.dept-color-teal .dept-card-icon {
+  background: #ede9fe;
+  color: #8b5cf6;
+}
+
+.dept-color-teal .dept-card-link {
+  color: #8b5cf6;
+}
+
+.dept-color-indigo {
+  background: #f3f0ff;
+  color: #6366f1;
+}
+
+.dept-color-indigo .dept-card-icon {
+  background: #e8e5ff;
+  color: #6366f1;
+}
+
+.dept-color-indigo .dept-card-link {
+  color: #6366f1;
+}
+
+.dept-color-purple {
+  background: #faf5ff;
+  color: #9333ea;
+}
+
+.dept-color-purple .dept-card-icon {
+  background: #f3e8ff;
+  color: #9333ea;
+}
+
+.dept-color-purple .dept-card-link {
+  color: #9333ea;
+}
+
+.dept-color-pink {
+  background: #fdf4ff;
+  color: #c026d3;
+}
+
+.dept-color-pink .dept-card-icon {
+  background: #fae8ff;
+  color: #c026d3;
+}
+
+.dept-color-pink .dept-card-link {
+  color: #c026d3;
+}
+
+.dept-color-rose {
+  background: #fff5fb;
+  color: #db2777;
+}
+
+.dept-color-rose .dept-card-icon {
+  background: #fce7f3;
+  color: #db2777;
+}
+
+.dept-color-rose .dept-card-link {
+  color: #db2777;
+}
+
+.dept-color-red {
+  background: #fff7fc;
+  color: #be185d;
+}
+
+.dept-color-red .dept-card-icon {
+  background: #fce7f3;
+  color: #be185d;
+}
+
+.dept-color-red .dept-card-link {
+  color: #be185d;
+}
+
+.dept-color-sky {
+  background: #f7f5ff;
+  color: #7c3aed;
+}
+
+.dept-color-sky .dept-card-icon {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.dept-color-sky .dept-card-link {
+  color: #7c3aed;
+}
+
+.dept-color-violet {
+  background: #f7f3ff;
+  color: #7c3aed;
+}
+
+.dept-color-violet .dept-card-icon {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.dept-color-violet .dept-card-link {
+  color: #7c3aed;
+}
+
+/* =========================================================
+   SKELETON
+========================================================= */
+
+.dept-skeleton {
+  min-height: 245px;
+
+  padding: 22px;
+
+  border: 1px solid #f0eafa;
+  border-radius: 18px;
+
+  background: #fbfaff;
+}
+
+.dept-skeleton-top {
+  min-height: 46px;
+}
+
+.dept-skeleton-block {
+  background: #eee9f7;
+
+  border-radius: 7px;
+
+  animation: dept-pulse 1.4s ease-in-out infinite;
+}
+
+.dept-skeleton-icon {
+  width: 46px;
+  height: 46px;
+
+  border-radius: 13px;
+}
+
+.dept-skeleton-content {
+  padding-top: 20px;
+}
+
+.dept-skeleton-line-lg {
+  width: 72%;
+  height: 16px;
+
+  margin-bottom: 10px;
+}
+
+.dept-skeleton-line-sm {
+  width: 48%;
+  height: 12px;
+}
+
+.dept-skeleton-line-description {
+  width: 90%;
+  height: 11px;
+
+  margin-top: 13px;
+}
+
+.dept-skeleton-line-xs {
+  width: 90px;
+  height: 12px;
+
+  margin-top: 28px;
+}
+
+@keyframes dept-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* =========================================================
+   ERROR / EMPTY STATE
+========================================================= */
+
+.dept-state {
+  grid-column: 1 / -1;
+
+  min-height: 280px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+
+  border: 1px dashed #ddd1ee;
+  border-radius: 18px;
+
+  background: #fcfaff;
+
+  text-align: center;
+}
+
+.dept-state-icon {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 16px;
+
+  border-radius: 14px;
+
+  background: #f3e8ff;
+
+  color: #7c3aed;
+}
+
+.dept-state-title {
+  margin: 0;
+
+  color: #241438;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.dept-state-message {
+  max-width: 450px;
+
+  margin: 8px 0 18px;
+
+  color: #766b80;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.dept-retry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 9px 14px;
+
+  border: 1px solid #ddd1ee;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #7c3aed;
+
+  font-size: 13px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.dept-retry-btn:hover {
+  background: #faf5ff;
+  border-color: #c4b5fd;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1024px) {
+  .dept-section {
+    padding: 60px 22px;
+  }
+
+  .dept-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dept-title {
+    font-size: 30px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  .dept-section {
+    padding: 46px 16px;
+  }
+
+  .dept-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .dept-title {
+    font-size: 27px;
+  }
+
+  .dept-subtitle {
+    font-size: 14px;
+  }
+
+  .dept-view-all {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dept-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .dept-card {
+    min-height: 220px;
+  }
+}

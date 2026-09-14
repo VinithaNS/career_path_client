@@ -1,5 +1,5 @@
 /* =========================================================
-   HOME PAGE
+   CAREERPATH HOME PAGE
 ========================================================= */
 
 :root {
@@ -7,17 +7,33 @@
   --brand-gradient: linear-gradient(135deg, #9333ea, #ec4899);
   --brand-accent: #ec4899;
   --brand-accent-light: #f9a8d4;
+
   --brand-bg: #fdf2f8;
+
   --brand-text: #2d1b4e;
   --brand-text-muted: #7c6e8c;
+
   --brand-border: #f5d9ea;
+
+  --section-purple-bg: #faf5ff;
+  --section-pink-bg: #fff7fb;
+  --section-orange-bg: #fffaf5;
+  --section-green-bg: #f5fcf8;
 }
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
 
 .page {
   width: 100%;
   min-height: 100vh;
+
   background: #ffffff;
+
   color: #111827;
+
+  overflow: hidden;
 }
 
 /* =========================================================
@@ -27,9 +43,10 @@
 .page-wrapper {
   width: 100%;
   max-width: 1400px;
-  margin: 0 auto;
 
   min-height: 390px;
+
+  margin: 0 auto;
 
   padding: 45px 55px;
 
@@ -37,9 +54,9 @@
   align-items: center;
   justify-content: space-between;
 
-  background: linear-gradient(135deg, #fdf2f8 0%, #fceef5 50%, #f3e8ff 100%);
-
   box-sizing: border-box;
+
+  background: linear-gradient(135deg, #fdf2f8 0%, #fceef5 50%, #f3e8ff 100%);
 }
 
 /* =========================================================
@@ -48,11 +65,13 @@
 
 .page-content {
   width: 50%;
+
   max-width: 600px;
 }
 
 .badge {
   display: inline-flex;
+
   align-items: center;
 
   padding: 8px 14px;
@@ -64,6 +83,7 @@
   color: #c026d3;
 
   font-size: 12px;
+
   font-weight: 700;
 
   letter-spacing: 0.4px;
@@ -75,6 +95,7 @@
   margin: 0;
 
   font-size: 43px;
+
   line-height: 1.2;
 
   font-weight: 700;
@@ -86,12 +107,13 @@
   color: var(--brand-accent);
 }
 
-.page-content p {
+.page-content > p {
   margin-top: 18px;
 
   max-width: 570px;
 
   font-size: 16px;
+
   line-height: 1.7;
 
   color: var(--brand-text-muted);
@@ -103,6 +125,7 @@
 
 .hero-buttons {
   display: flex;
+
   align-items: center;
 
   gap: 14px;
@@ -121,17 +144,25 @@
   border-radius: 7px;
 
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
 
   gap: 10px;
 
   font-size: 14px;
+
   font-weight: 600;
 
   cursor: pointer;
 
-  transition: all 0.2s ease;
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .btn-primary {
@@ -145,7 +176,11 @@
 .btn-primary:hover {
   background: #db2777;
 
+  color: #ffffff;
+
   transform: translateY(-1px);
+
+  box-shadow: 0 8px 20px rgba(147, 51, 234, 0.25);
 }
 
 .btn-secondary {
@@ -160,6 +195,8 @@
   background: var(--brand-bg);
 
   border-color: var(--brand-accent-light);
+
+  color: var(--brand-text);
 }
 
 /* =========================================================
@@ -170,7 +207,9 @@
   width: 48%;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   gap: 25px;
@@ -182,12 +221,15 @@
 
 .hero-visual {
   width: 420px;
+
   height: 340px;
 
   position: relative;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 }
 
@@ -195,6 +237,7 @@
   position: absolute;
 
   width: 300px;
+
   height: 300px;
 
   border-radius: 50%;
@@ -226,6 +269,7 @@
   width: 205px;
 
   display: flex;
+
   flex-direction: column;
 
   gap: 13px;
@@ -247,15 +291,29 @@
   border-radius: 10px;
 
   display: flex;
+
   align-items: center;
 
   gap: 12px;
 
+  text-decoration: none;
+
   box-shadow: 0 4px 12px rgba(124, 39, 173, 0.06);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(124, 39, 173, 0.12);
 }
 
 .stat-icon {
   width: 44px;
+
   height: 44px;
 
   min-width: 44px;
@@ -263,22 +321,27 @@
   border-radius: 10px;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 }
 
 .stat-icon.blue {
   color: #c026d3;
+
   background: #fce7f3;
 }
 
 .stat-icon.green {
   color: #16803c;
+
   background: #ecfdf5;
 }
 
 .stat-icon.purple {
   color: #9333ea;
+
   background: #f3e8ff;
 }
 
@@ -360,6 +423,7 @@
   min-width: 0;
 
   display: flex;
+
   align-items: center;
 
   gap: 11px;
@@ -369,6 +433,8 @@
   border-radius: 9px;
 
   cursor: pointer;
+
+  text-decoration: none;
 
   transition:
     background 0.2s ease,
@@ -387,6 +453,7 @@
 
 .quick-icon {
   width: 44px;
+
   height: 44px;
 
   min-width: 44px;
@@ -394,11 +461,11 @@
   border-radius: 50%;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 }
-
-/* BLUE — kept as-is functionally, matched to purple family */
 
 .blue-icon {
   color: #9333ea;
@@ -406,15 +473,11 @@
   background: #f3e8ff;
 }
 
-/* PURPLE */
-
 .purple-icon {
   color: #7e22ce;
 
   background: #f1e4fe;
 }
-
-/* GREEN — kept for "Colleges" semantic meaning */
 
 .green-icon {
   color: #139b69;
@@ -422,15 +485,11 @@
   background: #eafaf3;
 }
 
-/* ORANGE — kept for "Exams" semantic meaning */
-
 .orange-icon {
   color: #f97316;
 
   background: #fff3e8;
 }
-
-/* CYAN */
 
 .cyan-icon {
   color: #c026d3;
@@ -438,15 +497,11 @@
   background: #fae8f8;
 }
 
-/* PINK */
-
 .pink-icon {
   color: #db2777;
 
   background: #fce7f3;
 }
-
-/* FOLDER */
 
 .folder-icon {
   color: #9333ea;
@@ -483,6 +538,248 @@
 }
 
 /* =========================================================
+   HOME CONTENT SECTIONS
+========================================================= */
+
+.home-content-section {
+  width: 100%;
+
+  max-width: 1400px;
+
+  margin: 0 auto;
+
+  padding: 75px 55px;
+
+  box-sizing: border-box;
+
+  scroll-margin-top: 80px;
+}
+
+/* =========================================================
+   SECTION BACKGROUNDS
+========================================================= */
+
+.careers-section {
+  background: #ffffff;
+}
+
+.roadmaps-section {
+  background: var(--section-purple-bg);
+}
+
+.colleges-section {
+  background: #ffffff;
+}
+
+.exams-section {
+  background: var(--section-orange-bg);
+}
+
+.assessments-section {
+  background: var(--section-pink-bg);
+}
+
+.ai-tools-section {
+  background: var(--section-purple-bg);
+}
+
+.resources-section {
+  background: #ffffff;
+}
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.home-section-header {
+  width: 100%;
+
+  max-width: 1200px;
+
+  margin: 0 auto 40px;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+.home-section-title {
+  max-width: 720px;
+}
+
+.section-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 7px 13px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  margin-bottom: 12px;
+}
+
+.careers-badge {
+  background: #f3e8ff;
+
+  color: #9333ea;
+}
+
+.roadmap-badge {
+  background: #f3e8ff;
+
+  color: #7e22ce;
+}
+
+.colleges-badge {
+  background: #ecfdf5;
+
+  color: #16803c;
+}
+
+.exams-badge {
+  background: #fff3e8;
+
+  color: #f97316;
+}
+
+.assessments-badge {
+  background: #fce7f3;
+
+  color: #db2777;
+}
+
+.ai-badge {
+  background: #f3e8ff;
+
+  color: #9333ea;
+}
+
+.resources-badge {
+  background: #f3e8ff;
+
+  color: #7e22ce;
+}
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.home-section-title h2 {
+  margin: 0;
+
+  font-size: 36px;
+
+  line-height: 1.25;
+
+  font-weight: 700;
+
+  color: var(--brand-primary);
+}
+
+.home-section-title h2 span {
+  color: var(--brand-accent);
+}
+
+.home-section-title p {
+  max-width: 680px;
+
+  margin: 13px 0 0;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+
+  color: var(--brand-text-muted);
+}
+
+/* =========================================================
+   VIEW ALL BUTTON
+========================================================= */
+
+.section-view-all {
+  flex-shrink: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 11px 16px;
+
+  border-radius: 8px;
+
+  border: 1px solid var(--brand-border);
+
+  background: #ffffff;
+
+  color: var(--brand-primary);
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.section-view-all:hover {
+  background: var(--brand-gradient);
+
+  color: #ffffff;
+
+  border-color: transparent;
+
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   EXISTING PAGE CONTENT
+========================================================= */
+
+.home-page-content {
+  width: 100%;
+
+  max-width: 1320px;
+
+  margin: 0 auto;
+}
+
+/*
+   Important:
+   Existing Careers, Roadmap, Colleges, Exams,
+   Assessments, AI Tools and Resources components
+   are rendered here without changing their API logic.
+*/
+
+.home-page-content > * {
+  width: 100%;
+}
+
+/* =========================================================
+   SEPARATION BETWEEN HOME SECTIONS
+========================================================= */
+
+.home-content-section + .home-content-section {
+  border-top: 1px solid var(--brand-border);
+}
+
+/* =========================================================
    LOADING
 ========================================================= */
 
@@ -490,16 +787,21 @@
   min-height: 500px;
 
   display: flex;
+
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
   text-align: center;
+
+  padding: 30px;
 }
 
 .loading-spinner {
   width: 40px;
+
   height: 40px;
 
   border: 4px solid var(--brand-border);
@@ -543,9 +845,11 @@
   min-height: 500px;
 
   display: flex;
+
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
   text-align: center;
@@ -555,6 +859,7 @@
 
 .error-icon {
   width: 65px;
+
   height: 65px;
 
   border-radius: 50%;
@@ -564,7 +869,9 @@
   color: #d92d20;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   margin-bottom: 18px;
@@ -589,7 +896,7 @@
 }
 
 /* =========================================================
-   RESPONSIVE
+   LARGE DESKTOP
 ========================================================= */
 
 @media (max-width: 1200px) {
@@ -618,6 +925,10 @@
 
     padding: 15px;
   }
+
+  .home-content-section {
+    padding: 65px 35px;
+  }
 }
 
 /* =========================================================
@@ -625,6 +936,8 @@
 ========================================================= */
 
 @media (max-width: 900px) {
+  /* HERO */
+
   .page-wrapper {
     flex-direction: column;
 
@@ -641,8 +954,9 @@
     max-width: 650px;
   }
 
-  .page-content p {
+  .page-content > p {
     margin-left: auto;
+
     margin-right: auto;
   }
 
@@ -654,6 +968,8 @@
     width: 100%;
   }
 
+  /* QUICK ACCESS */
+
   .quick-access-wrapper {
     margin-top: 20px;
 
@@ -663,6 +979,32 @@
   .quick-access {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  /* HOME SECTIONS */
+
+  .home-content-section {
+    padding: 60px 25px;
+  }
+
+  .home-section-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    margin-bottom: 35px;
+  }
+
+  .home-section-title {
+    max-width: 100%;
+  }
+
+  .home-section-title h2 {
+    font-size: 31px;
+  }
+
+  .section-view-all {
+    align-self: flex-start;
+  }
 }
 
 /* =========================================================
@@ -670,6 +1012,8 @@
 ========================================================= */
 
 @media (max-width: 600px) {
+  /* HERO */
+
   .page-wrapper {
     padding: 35px 18px;
   }
@@ -678,7 +1022,7 @@
     font-size: 31px;
   }
 
-  .page-content p {
+  .page-content > p {
     font-size: 14px;
   }
 
@@ -701,6 +1045,7 @@
 
   .hero-visual {
     width: 100%;
+
     height: 280px;
   }
 
@@ -710,6 +1055,7 @@
 
   .hero-blob {
     width: 240px;
+
     height: 240px;
   }
 
@@ -718,6 +1064,8 @@
 
     max-width: 320px;
   }
+
+  /* QUICK ACCESS */
 
   .quick-access {
     grid-template-columns: repeat(2, 1fr);
@@ -731,6 +1079,7 @@
 
   .quick-icon {
     width: 38px;
+
     height: 38px;
 
     min-width: 38px;
@@ -742,5 +1091,55 @@
 
   .quick-item p {
     font-size: 10px;
+  }
+
+  /* HOME SECTIONS */
+
+  .home-content-section {
+    padding: 50px 18px;
+  }
+
+  .home-section-header {
+    margin-bottom: 30px;
+
+    gap: 20px;
+  }
+
+  .home-section-title h2 {
+    font-size: 27px;
+  }
+
+  .home-section-title p {
+    font-size: 14px;
+  }
+
+  .section-view-all {
+    width: 100%;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+  .page-content h1 {
+    font-size: 27px;
+  }
+
+  .quick-access {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-item {
+    justify-content: flex-start;
+  }
+
+  .home-section-title h2 {
+    font-size: 24px;
   }
 }

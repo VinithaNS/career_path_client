@@ -1,6 +1,6 @@
 .college-details-page {
   min-height: 100vh;
-  background: #f7f9fc;
+  background: #fdf4f7;
   padding: 35px 20px 80px;
 }
 .college-details-container {
@@ -22,14 +22,14 @@
   padding: 8px 0;
 }
 .back-college-btn:hover {
-  color: #2563eb;
+  color: #7b3a9e;
 }
 
 .college-details-hero {
   padding: 42px 48px;
   border-radius: 26px;
-  background: linear-gradient(135deg, #edf4ff, #f8fbff 58%, #eefaf7);
-  border: 1px solid #e1e9f3;
+  background: linear-gradient(135deg, #fce9f3, #fdf6fa 58%, #fff9f5);
+  border: 1px solid #f3dcea;
   margin-bottom: 24px;
 }
 .college-details-hero-content {
@@ -47,8 +47,8 @@
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  color: #2563eb;
-  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+  color: #7b3a9e;
+  box-shadow: 0 10px 25px rgba(139, 58, 158, 0.12);
 }
 .college-details-icon img {
   width: 100%;
@@ -73,7 +73,7 @@
   gap: 4px;
 }
 .college-type-badge {
-  background: #2563eb;
+  background: #7b3a9e;
   color: #ffffff;
 }
 .college-affiliation-badge {
@@ -83,7 +83,7 @@
 .college-location-badge {
   background: #ffffff;
   color: #64748b;
-  border: 1px solid #dfe7f0;
+  border: 1px solid #ecdfe8;
 }
 .college-details-heading h1 {
   margin: 0;
@@ -104,7 +104,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   background: #ffffff;
-  border: 1px solid #e5eaf1;
+  border: 1px solid #f0e0ec;
   border-radius: 18px;
   overflow: hidden;
 }
@@ -114,7 +114,7 @@
   display: flex;
   align-items: center;
   gap: 13px;
-  border-right: 1px solid #edf1f5;
+  border-right: 1px solid #f6e9f1;
 }
 .college-info-item:last-child {
   border-right: none;
@@ -129,20 +129,20 @@
   justify-content: center;
 }
 .college-info-icon.blue {
-  background: #eff5ff;
-  color: #2563eb;
+  background: #fbeef8;
+  color: #7b3a9e;
 }
 .college-info-icon.green {
   background: #ecfdf3;
   color: #16a34a;
 }
 .college-info-icon.purple {
-  background: #f5f3ff;
-  color: #7c3aed;
+  background: #f5ecfa;
+  color: #7b3a9e;
 }
 .college-info-icon.orange {
-  background: #fff7ed;
-  color: #ea580c;
+  background: #fff2ed;
+  color: #ec8f73;
 }
 .college-info-item span {
   display: block;
@@ -164,7 +164,7 @@
   flex-wrap: wrap;
 }
 .college-tabs button {
-  border: 1px solid #dce4ee;
+  border: 1px solid #ecdcea;
   background: #ffffff;
   color: #64748b;
   border-radius: 10px;
@@ -175,14 +175,14 @@
   transition: 0.2s ease;
 }
 .college-tabs button.active {
-  background: #2563eb;
+  background: #7b3a9e;
   color: #ffffff;
-  border-color: #2563eb;
+  border-color: #7b3a9e;
 }
 
 .college-details-card {
   background: #ffffff;
-  border: 1px solid #e5eaf1;
+  border: 1px solid #f0e0ec;
   border-radius: 19px;
   padding: 28px;
 }
@@ -200,7 +200,7 @@
 .college-detail-block {
   margin-top: 22px;
   padding-top: 22px;
-  border-top: 1px solid #edf1f5;
+  border-top: 1px solid #f6e9f1;
 }
 .college-detail-block h3 {
   margin: 0 0 12px;
@@ -219,8 +219,8 @@
   gap: 6px;
   padding: 9px 12px;
   border-radius: 9px;
-  background: #f5f3ff;
-  color: #6d28d9;
+  background: #f5ecfa;
+  color: #7b3a9e;
   font-size: 12px;
   font-weight: 700;
 }
@@ -236,8 +236,8 @@
   justify-content: space-between;
   padding: 15px;
   border-radius: 12px;
-  background: #f8fafc;
-  border: 1px solid #edf1f5;
+  background: #fdf8fb;
+  border: 1px solid #f6e9f1;
 }
 .college-course-item h4 {
   margin: 0 0 4px;
@@ -249,7 +249,7 @@
   font-size: 12px;
 }
 .college-course-item strong {
-  color: #2563eb;
+  color: #c2368c;
   font-size: 14px;
 }
 
@@ -261,8 +261,8 @@
 .college-review-item {
   padding: 16px;
   border-radius: 12px;
-  background: #f8fafc;
-  border: 1px solid #edf1f5;
+  background: #fdf8fb;
+  border: 1px solid #f6e9f1;
 }
 .college-review-header {
   display: flex;
@@ -302,11 +302,11 @@
   font-size: 14px;
 }
 .college-contact-list svg {
-  color: #2563eb;
+  color: #7b3a9e;
   flex-shrink: 0;
 }
 .college-contact-list a {
-  color: #2563eb;
+  color: #7b3a9e;
   text-decoration: none;
 }
 
@@ -333,8 +333,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2563eb;
-  background: #eff5ff;
+  color: #7b3a9e;
+  background: #fbeef8;
 }
 .college-details-error button {
   display: inline-flex;
@@ -343,7 +343,7 @@
   border: none;
   border-radius: 10px;
   padding: 12px 17px;
-  background: #2563eb;
+  background: #7b3a9e;
   color: #ffffff;
   font-weight: 700;
   cursor: pointer;
@@ -366,8 +366,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2563eb;
-  background: #eff5ff;
+  color: #7b3a9e;
+  background: #fbeef8;
 }
 
 .spin {
@@ -397,6 +397,6 @@
   }
   .college-info-item {
     border-right: none;
-    border-bottom: 1px solid #edf1f5;
+    border-bottom: 1px solid #f6e9f1;
   }
 }

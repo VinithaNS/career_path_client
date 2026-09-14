@@ -1,0 +1,80 @@
+.eleventh-groups-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.eleventh-groups-page-header {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.eleventh-groups-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6d28d9;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.eleventh-groups-back:hover {
+  text-decoration: underline;
+}
+
+.eleventh-groups-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ede9fe;
+  color: #6d28d9;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+.eleventh-groups-page-header h1 {
+  font-size: 40px;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+}
+
+.eleventh-groups-page-header h1 span {
+  background: linear-gradient(90deg, #7c3aed, #db2777);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.eleventh-groups-page-header p {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* =====================================================
+   GRID SPACING (within full page)
+===================================================== */
+
+.eleventh-groups-page-content .eleventh-group-grid {
+  gap: 24px;
+}
+
+@media (max-width: 600px) {
+  .eleventh-groups-page-header h1 {
+    font-size: 30px;
+  }
+}
