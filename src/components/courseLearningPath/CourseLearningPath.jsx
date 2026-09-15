@@ -213,7 +213,7 @@ export default function CourseLearningPath({ embedded = false }) {
         {errorMsg && (
           <div className="clp-error">
             {errorMsg} — check that the API is running at
-            http://localhost:5000/api.
+            http://localhost:5000/api
           </div>
         )}
 
@@ -333,20 +333,22 @@ export default function CourseLearningPath({ embedded = false }) {
                   // roadmapId may arrive populated ({ _id, ... }) or as a bare id string
                   const roadmapId =
                     detail.roadmapId?._id || detail.roadmapId || null;
+
                   return (
                     <button
                       className="clp-roadmap-btn"
-                      disabled={!roadmapId}
                       onClick={() =>
-                        roadmapId && navigate(`/roadmap/${roadmapId}`)
+                        navigate(
+                          roadmapId ? `/roadmap/${roadmapId}` : "/roadmap"
+                        )
                       }
                       title={
                         roadmapId
                           ? undefined
-                          : "No roadmap linked to this course yet"
+                          : "No roadmap linked to this course yet — browse all roadmaps"
                       }
                     >
-                      {roadmapId ? "View Full Roadmap" : "Roadmap coming soon"}
+                      {roadmapId ? "View Full Roadmap" : "Roadmap "}
                       <ArrowUpRight size={16} />
                     </button>
                   );

@@ -27,27 +27,26 @@ const RoadmapDetails = () => {
 
   useEffect(() => {
     let cancelled = false;
+    const controller = new AbortController();
 
     const loadRoadmap = async () => {
       try {
         setLoading(true);
         setError("");
 
-        console.log("Loading Roadmap ID:", id);
+        const response = await getCareerRoadmapById(id, controller.signal);
 
-        const response = await getCareerRoadmapById(id);
-
-        console.log("Roadmap Details API Response:", response);
-
-        const data = response?.data || response;
-
-        if (!cancelled) {
-          setRoadmap(data);
+        // Support both raw-payload ({ success, data }) and bare-object responses
+        if (response && typeof response === "object" && "success" in response) {
+          if (!response.success) {
+            throw new Error(response.message || "Failed to load roadmap");
+          }
+          if (!cancelled) setRoadmap(response.data);
+        } else {
+          if (!cancelled) setRoadmap(response?.data || response);
         }
       } catch (err) {
-        console.error("Roadmap Details API Error:", err);
-
-        if (!cancelled) {
+        if (err.code !== "ERR_CANCELED" && !cancelled) {
           setError(
             err.response?.data?.message ||
               err.message ||
@@ -55,16 +54,15 @@ const RoadmapDetails = () => {
           );
         }
       } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
+        if (!cancelled) setLoading(false);
       }
     };
 
-    loadRoadmap();
+    if (id) loadRoadmap();
 
     return () => {
       cancelled = true;
+      controller.abort();
     };
   }, [id]);
 
