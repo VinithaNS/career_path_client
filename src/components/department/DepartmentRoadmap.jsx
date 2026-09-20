@@ -1,299 +1,113 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   ArrowRight,
-  Building2,
-  Cpu,
-  Dna,
   GraduationCap,
-  HeartPulse,
-  Radio,
-  RotateCcw,
-  Settings,
-  TrendingUp,
-  Zap
+  Building2,
+  Wrench,
+  RefreshCw
 } from "lucide-react";
 
 import { fetchAllDepartments } from "../../services/departmentService";
 
 import "./DepartmentRoadmaps.css";
 
-const ICON_MAP = {
-  "computer-science": {
-    Icon: Cpu,
-    color: "blue"
-  },
-
-  "electronics-communication": {
-    Icon: Radio,
-    color: "teal"
-  },
-
-  mechanical: {
-    Icon: Settings,
-    color: "indigo"
-  },
-
-  civil: {
-    Icon: Building2,
-    color: "purple"
-  },
-
-  "electrical-electronics": {
-    Icon: Zap,
-    color: "pink"
-  },
-
-  biotechnology: {
-    Icon: Dna,
-    color: "rose"
-  },
-
-  "medical-allied-health": {
-    Icon: HeartPulse,
-    color: "red"
-  },
-
-  "business-management": {
-    Icon: TrendingUp,
-    color: "sky"
-  }
-};
-
-const DEFAULT_ICON = {
-  Icon: GraduationCap,
-  color: "violet"
-};
-
-const getVisuals = (department) => {
-  const key = department?.icon || department?.slug;
-
-  return ICON_MAP[key] || DEFAULT_ICON;
-};
-
-const getDepartmentSubtitle = (department) => {
-  const tags = Array.isArray(department?.tags)
-    ? department.tags.filter(Boolean)
-    : [];
-
-  if (department?.shortCode && tags.length > 0) {
-    return `${department.shortCode} • ${tags.slice(0, 2).join(" • ")}`;
-  }
-
-  if (department?.shortCode) {
-    return department.shortCode;
-  }
-
-  return tags.slice(0, 3).join(" • ");
-};
-
-const DepartmentCard = ({ department, onViewRoadmap }) => {
-  const { Icon, color } = getVisuals(department);
-
-  const subtitle = getDepartmentSubtitle(department);
-
-  return (
-    <article className={`dept-card dept-color-${color}`}>
-      <div className="dept-card-top">
-        <div className="dept-card-icon">
-          <Icon size={22} strokeWidth={2} />
-        </div>
-
-        {department?.isPopular && (
-          <span className="dept-popular-badge">Popular</span>
-        )}
-      </div>
-
-      <div className="dept-card-body">
-        <h3 className="dept-card-name">{department?.name || "Department"}</h3>
-
-        {subtitle && <p className="dept-card-tags">{subtitle}</p>}
-
-        {department?.description && (
-          <p className="dept-card-description">{department.description}</p>
-        )}
-      </div>
-
-      <button
-        type="button"
-        className="dept-card-link"
-        onClick={() => onViewRoadmap(department)}
-      >
-        <span>View Roadmap</span>
-
-        <ArrowRight size={17} strokeWidth={2} />
-      </button>
-    </article>
-  );
-};
-
-const CardSkeleton = () => {
-  return (
-    <div className="dept-skeleton">
-      <div className="dept-skeleton-top">
-        <div className="dept-skeleton-block dept-skeleton-icon" />
-      </div>
-
-      <div className="dept-skeleton-content">
-        <div className="dept-skeleton-block dept-skeleton-line-lg" />
-
-        <div className="dept-skeleton-block dept-skeleton-line-sm" />
-
-        <div className="dept-skeleton-block dept-skeleton-line-description" />
-      </div>
-
-      <div className="dept-skeleton-block dept-skeleton-line-xs" />
-    </div>
-  );
-};
-
-const ErrorState = ({ message, onRetry }) => {
-  return (
-    <div className="dept-state">
-      <div className="dept-state-icon">
-        <RotateCcw size={22} />
-      </div>
-
-      <h3 className="dept-state-title">Unable to load departments</h3>
-
-      <p className="dept-state-message">{message}</p>
-
-      <button type="button" className="dept-retry-btn" onClick={onRetry}>
-        <RotateCcw size={16} />
-        <span>Try again</span>
-      </button>
-    </div>
-  );
-};
-
-const EmptyState = () => {
-  return (
-    <div className="dept-state">
-      <div className="dept-state-icon">
-        <GraduationCap size={24} />
-      </div>
-
-      <h3 className="dept-state-title">No departments available</h3>
-
-      <p className="dept-state-message">
-        Departments will appear here once they are added.
-      </p>
-    </div>
-  );
-};
-
-const DepartmentRoadmaps = ({ onViewRoadmap, onViewAll }) => {
+const DepartmentRoadmaps = ({ embedded = false, onViewRoadmap, onViewAll }) => {
   const [departments, setDepartments] = useState([]);
-  const [status, setStatus] = useState("loading");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const loadDepartments = useCallback(async () => {
-    setStatus("loading");
-    setErrorMessage("");
-
-    try {
-      const data = await fetchAllDepartments();
-
-      setDepartments(Array.isArray(data) ? data : []);
-      setStatus("success");
-    } catch (error) {
-      console.error("Department loading error:", error);
-
-      setErrorMessage(
-        error?.message === "Failed to fetch"
-          ? "Couldn't reach the server. Please make sure your backend is running."
-          : error?.message || "Something went wrong while loading departments."
-      );
-
-      setStatus("error");
-    }
-  }, []);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    loadDepartments();
-  }, [loadDepartments]);
+    let isMounted = true;
+    const load = async () => {
+      try {
+        setLoading(true);
+        setError("");
+        const data = await fetchAllDepartments();
+        if (isMounted) {
+          setDepartments(Array.isArray(data) ? data : []);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err?.message || "Failed to load departments.");
+        }
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
-  const handleViewRoadmap = (department) => {
-    if (typeof onViewRoadmap === "function") {
-      onViewRoadmap(department);
-      return;
-    }
+  if (loading) {
+    return (
+      <div className="departments-loading-box">
+        <RefreshCw className="spin" size={26} />
+        <span>Loading College Departments & Roadmaps...</span>
+      </div>
+    );
+  }
 
-    if (department?.slug) {
-      window.location.href = `/departments/${department.slug}`;
-    }
-  };
-
-  const handleViewAll = () => {
-    if (typeof onViewAll === "function") {
-      onViewAll();
-    }
-  };
+  if (error) {
+    return (
+      <div className="departments-error-box">
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
-    <section className="dept-section">
-      <div className="dept-container">
-        {/* Header */}
-        <div className="dept-header">
-          <div className="dept-header-content">
-            <span className="dept-eyebrow">Explore Your Options</span>
-
-            <h1 className="dept-title">Department &amp; Career Roadmaps</h1>
-
-            <p className="dept-subtitle">
-              Explore college departments, understand career opportunities, and
-              follow a clear roadmap toward your dream career.
-            </p>
-          </div>
-
-          <button
-            type="button"
-            className="dept-view-all"
-            onClick={handleViewAll}
-          >
-            <span>View All Departments</span>
-
-            <ArrowRight size={17} strokeWidth={2} />
-          </button>
+    <div className="department-roadmaps-section-inner">
+      {/* RENDER HEADER ONLY IF NOT EMBEDDED IN HOME */}
+      {!embedded && (
+        <div className="department-standalone-header">
+          <span className="section-badge">COLLEGE DEPARTMENTS</span>
+          <h2>
+            Department & Career <span>Roadmaps</span>
+          </h2>
+          <p>
+            Explore the top college departments, degree courses, and industry
+            career paths.
+          </p>
         </div>
+      )}
 
-        {/* Loading */}
-        {status === "loading" && (
-          <div className="dept-grid">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <CardSkeleton key={index} />
-            ))}
-          </div>
-        )}
+      {/* Modern Unique Card Grid */}
+      <div className="departments-custom-grid">
+        {departments.map((dept) => (
+          <div key={dept._id} className="department-modern-card">
+            <div className="dept-card-top">
+              <div className="dept-card-icon">
+                <GraduationCap size={22} />
+              </div>
+              <span className="dept-code-tag">{dept.code || "ENGG"}</span>
+            </div>
 
-        {/* Error */}
-        {status === "error" && (
-          <div className="dept-grid">
-            <ErrorState message={errorMessage} onRetry={loadDepartments} />
-          </div>
-        )}
+            <h3 className="dept-name">{dept.departmentName}</h3>
+            <p className="dept-desc">{dept.description}</p>
 
-        {/* Empty */}
-        {status === "success" && departments.length === 0 && (
-          <div className="dept-grid">
-            <EmptyState />
-          </div>
-        )}
+            <div className="dept-tags-row">
+              {dept.degreesOffered?.slice(0, 3).map((deg, i) => (
+                <span key={i} className="dept-tag">
+                  {typeof deg === "string" ? deg : deg.courseCode || "B.E"}
+                </span>
+              ))}
+            </div>
 
-        {/* Departments */}
-        {status === "success" && departments.length > 0 && (
-          <div className="dept-grid">
-            {departments.map((department) => (
-              <DepartmentCard
-                key={department?._id || department?.slug || department?.name}
-                department={department}
-                onViewRoadmap={handleViewRoadmap}
-              />
-            ))}
+            <button
+              type="button"
+              className="dept-action-btn"
+              onClick={() => onViewRoadmap(dept)}
+            >
+              <span>View Department Roadmap</span>
+              <ArrowRight size={16} />
+            </button>
           </div>
-        )}
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
 

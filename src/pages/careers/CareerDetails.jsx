@@ -1,503 +1,470 @@
 import { useEffect, useState } from "react";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {
   ArrowLeft,
-  ArrowRight,
   Briefcase,
+  TrendingUp,
+  CheckCircle2,
   GraduationCap,
-  Lightbulb,
-  IndianRupee,
-  Users,
-  BookOpen,
-  Award,
-  RefreshCw,
-  CheckCircle2
+  Sparkles,
+  ArrowRight,
+  X,
+  Wrench,
+  Compass,
+  Check
 } from "lucide-react";
 
 import { getCareerById } from "../../services/careerService";
+import { getRoadmapByTitle } from "../../services/roadmapService";
 
 import "./CareerDetails.css";
 
-/* =========================================================
-   MAIN PAGE
-========================================================= */
+// =========================================================================
+// HELPER: SAFELY FORMAT SALARY (PREVENTS {min, max} OBJECT CRASH)
+// =========================================================================
+const formatSalary = (val, fallback = "₹4 LPA - ₹12 LPA") => {
+  if (!val) return fallback;
+  if (typeof val === "string") return val;
+  if (typeof val === "object") {
+    if (val.min !== undefined && val.max !== undefined) {
+      const minLakh =
+        val.min >= 100000 ? (val.min / 100000).toFixed(1) : val.min;
+      const maxLakh =
+        val.max >= 100000 ? (val.max / 100000).toFixed(1) : val.max;
+      return `₹${minLakh} - ₹${maxLakh} LPA`;
+    }
+    if (val.min !== undefined) return `₹${val.min} LPA`;
+    if (val.max !== undefined) return `Up to ₹${val.max} LPA`;
+  }
+  return fallback;
+};
+
+// =========================================================================
+// JOB ROLE SPECIFIC DETAILS MAPPING
+// =========================================================================
+const ROLE_DETAILS_MAP = {
+  "frontend developer": {
+    title: "Frontend Developer",
+    roleCode: "FED-01",
+    experienceLevel: "Entry to Mid Level",
+    averageSalary: "₹4.5 - 9 LPA",
+    description:
+      "Builds user-facing interfaces, responsive web applications, and optimizes browser performance.",
+    coreSkills: [
+      "HTML5 & CSS3",
+      "JavaScript (ES6+)",
+      "React.js / Vue.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "REST APIs"
+    ],
+    tools: [
+      "VS Code",
+      "Git & GitHub",
+      "Figma",
+      "Chrome DevTools",
+      "Webpack / Vite"
+    ],
+    responsibilities: [
+      "Develop responsive and accessible web layouts from design mockups.",
+      "Integrate backend APIs and handle complex client-side state.",
+      "Optimize website load times and cross-browser compatibility."
+    ],
+    roadmapQuery: "Frontend Developer"
+  },
+  "backend developer": {
+    title: "Backend Developer",
+    roleCode: "BED-02",
+    experienceLevel: "Entry to Senior Level",
+    averageSalary: "₹5.5 - 12 LPA",
+    description:
+      "Architects server logic, database schemas, microservices, and secure API gateways.",
+    coreSkills: [
+      "Node.js / Express",
+      "Python (Django/FastAPI)",
+      "MongoDB & SQL",
+      "REST & GraphQL",
+      "Authentication (JWT/OAuth)",
+      "Docker Basics"
+    ],
+    tools: ["Postman", "Docker", "MongoDB Compass", "Redis", "Linux Terminal"],
+    responsibilities: [
+      "Design database models and build performant backend APIs.",
+      "Implement user authentication, data encryption, and authorization layers.",
+      "Manage server deployment, scaling, and database indexing."
+    ],
+    roadmapQuery: "Backend Developer"
+  },
+  "full stack developer": {
+    title: "Full Stack Developer",
+    roleCode: "FSD-03",
+    experienceLevel: "Mid to Senior Level",
+    averageSalary: "₹6 - 15 LPA",
+    description:
+      "Bridges client and server architectures, mastering end-to-end web application development.",
+    coreSkills: [
+      "MERN Stack (Mongo, Express, React, Node)",
+      "Next.js",
+      "State Management (Redux/Zustand)",
+      "PostgreSQL",
+      "Cloud Deployment (AWS/Vercel)",
+      "System Design"
+    ],
+    tools: ["Git", "Docker", "AWS / Vercel", "Postman", "VS Code"],
+    responsibilities: [
+      "Design and maintain full-stack web applications from UI to database.",
+      "Coordinate database queries and front-end rendering pipelines.",
+      "Monitor application performance, logging, and error resolution."
+    ],
+    roadmapQuery: "Full Stack Developer"
+  },
+  "software engineer": {
+    title: "Software Engineer",
+    roleCode: "SWE-04",
+    experienceLevel: "Graduate to Senior Engineer",
+    averageSalary: "₹6 - 18 LPA",
+    description:
+      "Focuses on computer science fundamentals, data structures, algorithms, and scalable system engineering.",
+    coreSkills: [
+      "Data Structures & Algorithms",
+      "Java / C++ / Python",
+      "Object-Oriented Design",
+      "Operating Systems & Networking",
+      "CI/CD & DevOps",
+      "Design Patterns"
+    ],
+    tools: [
+      "Git",
+      "Jenkins / GitHub Actions",
+      "Kubernetes",
+      "Jira",
+      "IntelliJ IDEA"
+    ],
+    responsibilities: [
+      "Write clean, maintainable, and high-performance algorithms.",
+      "Conduct unit testing, code reviews, and architectural design documentation.",
+      "Solve algorithmic bottlenecks and engineer resilient distributed software."
+    ],
+    roadmapQuery: "Software Developer Roadmap"
+  }
+};
 
 const CareerDetails = () => {
   const { id } = useParams();
-
-  if (!id) {
-    return <CareerDetailsError message="Career ID is missing." />;
-  }
-
-  return <CareerDetailsContent key={id} careerId={id} />;
-};
-
-/* =========================================================
-   CAREER DETAILS CONTENT
-========================================================= */
-
-const CareerDetailsContent = ({ careerId }) => {
   const navigate = useNavigate();
-
   const [career, setCareer] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [navigatingRoadmap, setNavigatingRoadmap] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
-
-    const loadCareer = async () => {
+    const fetchCareer = async () => {
       try {
         setLoading(true);
-        setError("");
-
-        const response = await getCareerById(careerId);
-
-        if (!isMounted) return;
-
-        if (response?.success && response?.data) {
-          setCareer(response.data);
-        } else {
-          setCareer(null);
-          setError(response?.message || "Career not found.");
-        }
+        const res = await getCareerById(id);
+        if (isMounted) setCareer(res?.data || res);
       } catch (err) {
-        console.error("Career Details API Error:", err);
-
-        if (!isMounted) return;
-
-        setCareer(null);
-        setError(
-          err?.response?.data?.message || "Unable to load career details."
-        );
+        console.error("Failed to load career:", err);
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        if (isMounted) setLoading(false);
       }
     };
-
-    loadCareer();
-
+    fetchCareer();
     return () => {
       isMounted = false;
     };
-  }, [careerId]);
+  }, [id]);
 
-  /* =========================================================
-     LOADING
-  ========================================================= */
+  const handleRoleClick = (roleName) => {
+    const key = roleName.toLowerCase().trim();
+    const details = ROLE_DETAILS_MAP[key] || {
+      title: roleName,
+      roleCode: "ROLE-PRO",
+      experienceLevel: "Entry to Mid Level",
+      averageSalary: formatSalary(career?.averageSalary, "₹4 - 10 LPA"),
+      description: `Specialized job role under ${career?.careerName || "this career stream"}.`,
+      coreSkills: career?.skills || [
+        "Problem Solving",
+        "Core Concepts",
+        "Best Practices"
+      ],
+      tools: ["VS Code", "Git"],
+      responsibilities: [
+        `Deliver high quality tasks related to ${roleName}.`,
+        "Collaborate with engineering teams.",
+        "Maintain clean code."
+      ],
+      roadmapQuery: roleName
+    };
 
-  if (loading) {
+    setSelectedRole(details);
+  };
+
+  const handleOpenRoadmap = async (queryTitle) => {
+    try {
+      setNavigatingRoadmap(true);
+      const res = await getRoadmapByTitle(queryTitle);
+      if (res?.data?._id) {
+        navigate(`/roadmap/${res.data._id}`);
+      } else {
+        navigate("/roadmap");
+      }
+    } catch {
+      navigate("/roadmap");
+    } finally {
+      setNavigatingRoadmap(false);
+    }
+  };
+
+  if (loading || !career) {
     return (
-      <section className="career-details-page">
-        <div className="career-details-state">
-          <div className="state-icon loading-icon">
-            <RefreshCw size={32} className="spin" />
-          </div>
-
-          <h2>Loading career details...</h2>
-
-          <p>Please wait while we fetch the career information.</p>
-        </div>
-      </section>
+      <div className="career-details-loading">Loading Career Overview...</div>
     );
   }
 
-  /* =========================================================
-     ERROR
-  ========================================================= */
+  const jobRolesList = career.jobRoles || [
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+    "Software Engineer"
+  ];
 
-  if (error || !career) {
-    return <CareerDetailsError message={error} />;
-  }
-
-  /* =========================================================
-     SAFE DATA
-  ========================================================= */
-
-  const education = Array.isArray(career.educationRequired)
-    ? career.educationRequired
-    : [];
-
-  const skills = Array.isArray(career.requiredSkills)
-    ? career.requiredSkills
-    : [];
-
-  const jobRoles = Array.isArray(career.jobRoles) ? career.jobRoles : [];
-
-  const relatedCourses = Array.isArray(career.relatedCourses)
-    ? career.relatedCourses
-    : [];
-
-  const certifications = Array.isArray(career.relatedCertifications)
-    ? career.relatedCertifications
-    : [];
-
-  const salaryMin = career.salaryRange?.min;
-  const salaryMax = career.salaryRange?.max;
-
-  const hasSalaryRange =
-    (salaryMin !== undefined && salaryMin > 0) ||
-    (salaryMax !== undefined && salaryMax > 0);
-
-  /* =========================================================
-     PAGE
-  ========================================================= */
+  const displayAverageSalary = formatSalary(
+    career.averageSalary,
+    "₹4 LPA - ₹12 LPA"
+  );
+  const displaySalaryRange = formatSalary(
+    career.salaryRange,
+    displayAverageSalary
+  );
 
   return (
-    <section className="career-details-page">
+    <div className="career-details-page">
       <div className="career-details-container">
-        {/* =================================================
-            BACK
-        ================================================= */}
-
+        {/* Top Back Navigation */}
         <button
           type="button"
-          className="back-careers-btn"
-          onClick={() => navigate("/careers")}
+          className="career-back-btn"
+          onClick={() => navigate(-1)}
         >
-          <ArrowLeft size={18} />
+          <ArrowLeft size={16} />
           <span>Back to Careers</span>
         </button>
 
-        {/* =================================================
-            HERO
-        ================================================= */}
+        {/* Hero Section */}
+        <div className="career-hero-card">
+          <div className="career-hero-top">
+            <span className="career-code-chip">
+              {career.careerCode || "SD001"}
+            </span>
+            <span className="featured-chip">FEATURED CAREER</span>
+          </div>
+          <h1>{career.careerName}</h1>
+          <p>{career.description}</p>
+        </div>
 
-        <header className="career-details-hero">
-          <div className="hero-decoration hero-decoration-one" />
-          <div className="hero-decoration hero-decoration-two" />
-
-          <div className="career-details-hero-content">
-            <div className="career-details-icon">
-              <Briefcase size={34} strokeWidth={2} />
+        {/* Main Grid Layout */}
+        <div className="career-grid-layout">
+          <div className="career-left-col">
+            {/* Overview */}
+            <div className="detail-panel">
+              <h3>About This Career</h3>
+              <p>{career.about || career.description}</p>
             </div>
 
-            <div className="career-details-heading">
-              <div className="career-meta">
-                <span className="career-code">
-                  {career.careerCode || "CAREER"}
-                </span>
+            {/* Eligibility & Education */}
+            <div className="detail-panel">
+              <h3>Eligibility & Education</h3>
+              <div className="eligibility-highlight">
+                {career.eligibility ||
+                  "Bachelor's degree or equivalent qualification in Computer Science or a related field."}
+              </div>
+              <h4 className="sub-title">Education Required</h4>
+              <div className="education-tags-list">
+                {career.educationRequired?.map((edu, idx) => (
+                  <div key={idx} className="edu-tag-item">
+                    <CheckCircle2 size={16} color="#059669" />
+                    <span>
+                      {typeof edu === "string"
+                        ? edu
+                        : edu.courseName || edu.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-                {career.isFeatured && (
-                  <span className="featured-badge">Featured Career</span>
-                )}
+            {/* Required Skills */}
+            <div className="detail-panel">
+              <h3>Required Skills</h3>
+              <div className="skills-pill-wrap">
+                {career.skills?.map((skill, idx) => (
+                  <span key={idx} className="skill-pill">
+                    {typeof skill === "string" ? skill : skill.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Opportunities: Job Roles */}
+            <div className="detail-panel">
+              <div className="panel-header-wrap">
+                <div>
+                  <span className="section-pre-tag">OPPORTUNITIES</span>
+                  <h3>Job Roles</h3>
+                  <p className="section-hint">
+                    Click any role to inspect required skills, tools, and
+                    roadmap
+                  </p>
+                </div>
               </div>
 
-              <h1>{career.careerName}</h1>
-
-              <p>
-                {career.shortDescription ||
-                  "Explore this career opportunity and learn more about the required skills, education and career scope."}
-              </p>
+              <div className="job-roles-list">
+                {jobRolesList.map((role, idx) => {
+                  const roleTitle =
+                    typeof role === "string"
+                      ? role
+                      : role.roleName || role.title;
+                  return (
+                    <div
+                      key={idx}
+                      className="job-role-interactive-row"
+                      onClick={() => handleRoleClick(roleTitle)}
+                    >
+                      <span className="role-index">0{idx + 1}</span>
+                      <span className="role-title">{roleTitle}</span>
+                      <div className="role-action-arrow">
+                        <span>Skills & Path</span>
+                        <ArrowRight size={15} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
-          {career.careerImage && (
-            <div className="career-details-image-wrapper">
-              <img
-                src={career.careerImage}
-                alt={career.careerName}
-                className="career-details-image"
-              />
+          {/* Right Sidebar */}
+          <div className="career-right-col">
+            <div className="side-card earning-card">
+              <span className="side-label">Earning Potential</span>
+              <h2>{displayAverageSalary}</h2>
+              <span className="sub-salary">{displaySalaryRange}</span>
             </div>
-          )}
-        </header>
 
-        {/* =================================================
-            CONTENT
-        ================================================= */}
-
-        <div className="career-details-layout">
-          {/* =================================================
-              MAIN CONTENT
-          ================================================= */}
-
-          <main className="career-details-main">
-            {/* ABOUT */}
-            <section className="career-details-card">
-              <div className="section-title">
-                <div className="section-title-icon blue">
-                  <BookOpen size={21} />
-                </div>
-
-                <div>
-                  <span>Overview</span>
-                  <h2>About This Career</h2>
-                </div>
-              </div>
-
-              <p className="career-description">
-                {career.description ||
-                  career.shortDescription ||
-                  "No description available."}
+            <div className="side-card">
+              <h4>Related Courses</h4>
+              <p className="muted-text">
+                Explore degree programs associated with this path.
               </p>
-            </section>
+              <button
+                type="button"
+                className="side-link-btn"
+                onClick={() => navigate("/education")}
+              >
+                Browse Degree Catalog &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
 
-            {/* ELIGIBILITY */}
-            <section className="career-details-card">
-              <div className="section-title">
-                <div className="section-title-icon green">
-                  <GraduationCap size={21} />
-                </div>
-
+        {/* Modal: Job Role Details */}
+        {selectedRole && (
+          <div
+            className="role-modal-backdrop"
+            onClick={() => setSelectedRole(null)}
+          >
+            <div
+              className="role-modal-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-header">
                 <div>
-                  <span>Requirements</span>
-                  <h2>Eligibility & Education</h2>
+                  <span className="modal-badge">{selectedRole.roleCode}</span>
+                  <h2>{selectedRole.title}</h2>
+                  <span className="modal-level">
+                    {selectedRole.experienceLevel} •{" "}
+                    {selectedRole.averageSalary}
+                  </span>
                 </div>
+                <button
+                  type="button"
+                  className="modal-close-btn"
+                  onClick={() => setSelectedRole(null)}
+                >
+                  <X size={20} />
+                </button>
               </div>
 
-              {career.eligibility && (
-                <div className="detail-block">
-                  <h3>Eligibility</h3>
+              <p className="modal-description">{selectedRole.description}</p>
 
-                  <p>{career.eligibility}</p>
-                </div>
-              )}
-
-              {education.length > 0 && (
-                <div className="detail-block">
-                  <h3>Education Required</h3>
-
-                  <ul className="detail-list">
-                    {education.map((item, index) => (
-                      <li key={index}>
-                        <CheckCircle2 size={17} />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {!career.eligibility && education.length === 0 && (
-                <p className="empty-detail">
-                  No eligibility or education information available.
-                </p>
-              )}
-            </section>
-
-            {/* SKILLS */}
-            <section className="career-details-card">
-              <div className="section-title">
-                <div className="section-title-icon purple">
-                  <Lightbulb size={21} />
-                </div>
-
-                <div>
-                  <span>Expertise</span>
-                  <h2>Required Skills</h2>
-                </div>
-              </div>
-
-              {skills.length > 0 ? (
-                <div className="skills-list">
-                  {skills.map((skill, index) => (
-                    <span key={index} className="skill-tag">
-                      <CheckCircle2 size={15} />
-                      {skill}
+              <div className="modal-section">
+                <h4>
+                  <CheckCircle2 size={16} color="#9333ea" />
+                  <span>Required Skills for this Role</span>
+                </h4>
+                <div className="modal-chips-grid">
+                  {selectedRole.coreSkills.map((sk, i) => (
+                    <span key={i} className="modal-skill-chip">
+                      {sk}
                     </span>
                   ))}
                 </div>
-              ) : (
-                <p className="empty-detail">No skills information available.</p>
-              )}
-            </section>
-
-            {/* JOB ROLES */}
-            <section className="career-details-card">
-              <div className="section-title">
-                <div className="section-title-icon orange">
-                  <Users size={21} />
-                </div>
-
-                <div>
-                  <span>Opportunities</span>
-                  <h2>Job Roles</h2>
-                </div>
               </div>
 
-              {jobRoles.length > 0 ? (
-                <div className="job-roles-list">
-                  {jobRoles.map((role, index) => (
-                    <div key={index} className="job-role-item">
-                      <span className="job-role-number">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-
-                      <span className="job-role-text">{role}</span>
-
-                      <ArrowRight size={17} className="role-arrow" />
-                    </div>
+              <div className="modal-section">
+                <h4>
+                  <Wrench size={16} color="#db2777" />
+                  <span>Common Tools & Tech Stack</span>
+                </h4>
+                <div className="modal-chips-grid">
+                  {selectedRole.tools.map((tl, i) => (
+                    <span key={i} className="modal-tool-chip">
+                      {tl}
+                    </span>
                   ))}
                 </div>
-              ) : (
-                <p className="empty-detail">
-                  No job roles information available.
-                </p>
-              )}
-            </section>
-
-            {/* CAREER SCOPE */}
-            <section className="career-details-card">
-              <div className="section-title">
-                <div className="section-title-icon blue">
-                  <Briefcase size={21} />
-                </div>
-
-                <div>
-                  <span>Future</span>
-                  <h2>Career Scope</h2>
-                </div>
               </div>
 
-              <p className="career-description">
-                {career.careerScope ||
-                  "Career scope information is not available."}
-              </p>
-            </section>
-          </main>
-
-          {/* =================================================
-              SIDEBAR
-          ================================================= */}
-
-          <aside className="career-details-sidebar">
-            {/* SALARY */}
-            <section className="career-sidebar-card salary-card">
-              <div className="salary-top">
-                <div className="sidebar-icon">
-                  <IndianRupee size={23} />
-                </div>
-
-                <span className="sidebar-label">Earning Potential</span>
-              </div>
-
-              <h3>Average Salary</h3>
-
-              <strong>{career.averageSalary || "Not available"}</strong>
-
-              {hasSalaryRange && (
-                <div className="salary-range">
-                  <span>₹{salaryMin || 0} LPA</span>
-                  <span className="salary-dash">–</span>
-                  <span>₹{salaryMax || 0} LPA</span>
-                </div>
-              )}
-            </section>
-
-            {/* COURSES */}
-            <section className="career-sidebar-card">
-              <div className="sidebar-title">
-                <GraduationCap size={20} />
-                <h3>Related Courses</h3>
-              </div>
-
-              {relatedCourses.length > 0 ? (
-                <ul className="sidebar-list">
-                  {relatedCourses.map((course, index) => (
-                    <li key={index}>
-                      <CheckCircle2 size={15} />
-
-                      <span>
-                        {typeof course === "object"
-                          ? course.courseName || course.name || "Course"
-                          : course}
-                      </span>
+              <div className="modal-section">
+                <h4>
+                  <Compass size={16} color="#059669" />
+                  <span>Key Responsibilities</span>
+                </h4>
+                <ul className="modal-resp-list">
+                  {selectedRole.responsibilities.map((resp, i) => (
+                    <li key={i}>
+                      <Check size={14} className="resp-check" />
+                      <span>{resp}</span>
                     </li>
                   ))}
                 </ul>
-              ) : (
-                <p className="empty-sidebar">No related courses available.</p>
-              )}
-            </section>
-
-            {/* CERTIFICATIONS */}
-            <section className="career-sidebar-card">
-              <div className="sidebar-title">
-                <Award size={20} />
-                <h3>Certifications</h3>
               </div>
 
-              {certifications.length > 0 ? (
-                <ul className="sidebar-list">
-                  {certifications.map((certification, index) => (
-                    <li key={index}>
-                      <CheckCircle2 size={15} />
-
-                      <span>
-                        {typeof certification === "object"
-                          ? certification.certificationName ||
-                            certification.name ||
-                            "Certification"
-                          : certification}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="empty-sidebar">
-                  No related certifications available.
-                </p>
-              )}
-            </section>
-
-            {/* QUICK ACTION */}
-            <section className="career-sidebar-card quick-action-card">
-              <div className="quick-action-icon">
-                <Briefcase size={21} />
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="modal-action-btn"
+                  onClick={() => handleOpenRoadmap(selectedRole.roadmapQuery)}
+                  disabled={navigatingRoadmap}
+                >
+                  <Sparkles size={16} />
+                  <span>
+                    {navigatingRoadmap
+                      ? "Loading Path..."
+                      : `View ${selectedRole.title} Roadmap`}
+                  </span>
+                  <ArrowRight size={16} />
+                </button>
               </div>
-
-              <h3>Interested in this career?</h3>
-
-              <p>
-                Explore more careers and find the path that matches your
-                interests and skills.
-              </p>
-
-              <button type="button" onClick={() => navigate("/careers")}>
-                <span>Explore More Careers</span>
-                <ArrowRight size={16} />
-              </button>
-            </section>
-          </aside>
-        </div>
+            </div>
+          </div>
+        )}
       </div>
-    </section>
-  );
-};
-
-/* =========================================================
-   ERROR COMPONENT
-========================================================= */
-
-const CareerDetailsError = ({ message }) => {
-  const navigate = useNavigate();
-
-  return (
-    <section className="career-details-page">
-      <div className="career-details-state">
-        <div className="state-icon error-state-icon">
-          <Briefcase size={38} />
-        </div>
-
-        <h2>Career Not Found</h2>
-
-        <p>{message || "The requested career could not be found."}</p>
-
-        <button
-          type="button"
-          className="error-back-button"
-          onClick={() => navigate("/careers")}
-        >
-          <ArrowLeft size={18} />
-          <span>Back to Careers</span>
-        </button>
-      </div>
-    </section>
+    </div>
   );
 };
 

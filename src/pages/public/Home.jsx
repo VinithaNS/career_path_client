@@ -7,12 +7,6 @@ import {
   ClipboardList,
   Briefcase,
   Building2,
-  Compass,
-  Map,
-  GraduationCap,
-  Brain,
-  Bot,
-  FolderOpen,
   RefreshCw,
   ChevronRight
 } from "lucide-react";
@@ -26,15 +20,7 @@ import EleventhGroups from "../../components/eleventhGroup/EleventhGroups";
 import "./home.css";
 
 const Home = () => {
-  // =====================================================
-  // NAVIGATION
-  // =====================================================
-
   const navigate = useNavigate();
-
-  // =====================================================
-  // STATE
-  // =====================================================
 
   const [stats, setStats] = useState({
     careers: 0,
@@ -43,124 +29,59 @@ const Home = () => {
   });
 
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState("");
 
-  // =====================================================
-  // FETCH HOME DATA
-  // =====================================================
-
-  const fetchHomeData = async () => {
+  const fetchHomeData = async (isMounted = true) => {
     try {
       setLoading(true);
-
       setError("");
 
       const response = await getHomeData();
 
-      console.log("Home API Response:", response);
+      if (!isMounted) return;
 
       if (response?.success && response?.data?.stats) {
         setStats({
           careers: response.data.stats.careers ?? 0,
-
           colleges: response.data.stats.colleges ?? 0,
-
           exams: response.data.stats.exams ?? 0
         });
-
-        setError("");
       } else {
-        setError(response?.message || "Failed to load home page data.");
+        setError(response?.message || "Failed to load platform data.");
       }
     } catch (err) {
-      console.error("Home API Error:", err);
-
+      if (!isMounted) return;
       setError(
         err?.response?.data?.message ||
-          "Unable to connect to the server. Please try again."
+          "Unable to connect to the server. Please check your backend connection."
       );
     } finally {
-      setLoading(false);
+      if (isMounted) {
+        setLoading(false);
+      }
     }
   };
 
-  // =====================================================
-  // LOAD HOME DATA
-  // =====================================================
-
   useEffect(() => {
     let isMounted = true;
-
-    const loadHomeData = async () => {
-      try {
-        const response = await getHomeData();
-
-        console.log("Home API Response:", response);
-
-        if (!isMounted) {
-          return;
-        }
-
-        if (response?.success && response?.data?.stats) {
-          setStats({
-            careers: response.data.stats.careers ?? 0,
-
-            colleges: response.data.stats.colleges ?? 0,
-
-            exams: response.data.stats.exams ?? 0
-          });
-
-          setError("");
-        } else {
-          setError(response?.message || "Failed to load home page data.");
-        }
-      } catch (err) {
-        if (!isMounted) {
-          return;
-        }
-
-        console.error("Home API Error:", err);
-
-        setError(
-          err?.response?.data?.message ||
-            "Unable to connect to the server. Please try again."
-        );
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
-      }
-    };
-
-    loadHomeData();
+    fetchHomeData(isMounted);
 
     return () => {
       isMounted = false;
     };
   }, []);
 
-  // =====================================================
-  // LOADING SCREEN
-  // =====================================================
-
   if (loading) {
     return (
       <section className="page">
         <div className="home-loading">
           <div className="loading-spinner"></div>
-
           <h3>Loading CareerPath...</h3>
-
-          <p>Loading careers, colleges and exam information...</p>
+          <p>Preparing careers, courses, and educational pathways...</p>
         </div>
       </section>
     );
   }
-
-  // =====================================================
-  // ERROR SCREEN
-  // =====================================================
 
   if (error) {
     return (
@@ -169,21 +90,12 @@ const Home = () => {
           <div className="error-icon">
             <RefreshCw size={32} />
           </div>
-
-          <h3>Unable to Load Home Page</h3>
-
+          <h3>Unable to Load Content</h3>
           <p>{error}</p>
-
           <button
             type="button"
             className="btn-primary"
-            onClick={() => {
-              setLoading(true);
-
-              setError("");
-
-              fetchHomeData();
-            }}
+            onClick={() => fetchHomeData(true)}
           >
             Try Again
             <RefreshCw size={18} />
@@ -193,50 +105,30 @@ const Home = () => {
     );
   }
 
-  // =====================================================
-  // MAIN HOME PAGE
-  // =====================================================
-
   return (
     <section className="page">
       {/* =====================================================
           HERO SECTION
       ===================================================== */}
-
       <div className="page-wrapper">
-        {/* =================================================
-            LEFT HERO CONTENT
-        ================================================= */}
-
         <div className="page-content">
           <span className="badge">FIND YOUR PERFECT CAREER PATH</span>
-
           <h1>
             Discover, Learn &
             <br />
             Build Your
             <span>Bright Future</span>
           </h1>
-
           <p>
             Explore 500+ career options, find the right courses, top colleges,
             prepare for exams and build the skills you need to succeed.
           </p>
 
-          {/* =================================================
-              HERO BUTTONS
-          ================================================= */}
-
           <div className="hero-buttons">
-            {/* EXPLORE CAREERS */}
-
             <Link to="/careers" className="btn-primary">
               Explore Careers
               <ArrowRight size={18} />
             </Link>
-
-            {/* TAKE ASSESSMENT */}
-
             <Link to="/assessments" className="btn-secondary">
               Take Assessment
               <ClipboardList size={18} />
@@ -244,68 +136,43 @@ const Home = () => {
           </div>
         </div>
 
-        {/* =================================================
-            RIGHT HERO
-        ================================================= */}
-
         <div className="hero-section">
-          {/* =================================================
-              STUDENT IMAGE
-          ================================================= */}
-
           <div className="hero-visual">
             <div className="hero-blob"></div>
-
             <img
               src={heroImage}
-              alt="Student using laptop"
+              alt="Student planning career"
               className="hero-img"
             />
           </div>
 
-          {/* =================================================
-              STAT CARDS
-          ================================================= */}
-
           <div className="stat-cards-container">
-            {/* CAREERS */}
-
             <Link to="/careers" className="stat-card">
               <div className="stat-icon blue">
                 <Briefcase size={22} />
               </div>
-
               <div className="stat-info">
                 <h4>{stats.careers}+</h4>
-
                 <p>Career Options</p>
               </div>
             </Link>
-
-            {/* COLLEGES */}
 
             <Link to="/colleges" className="stat-card">
               <div className="stat-icon green">
                 <Building2 size={22} />
               </div>
-
               <div className="stat-info">
                 <h4>{stats.colleges}+</h4>
-
                 <p>Top Colleges</p>
               </div>
             </Link>
-
-            {/* EXAMS */}
 
             <Link to="/exams" className="stat-card">
               <div className="stat-icon purple">
                 <ClipboardList size={22} />
               </div>
-
               <div className="stat-info">
                 <h4>{stats.exams}+</h4>
-
                 <p>Exams Covered</p>
               </div>
             </Link>
@@ -314,115 +181,8 @@ const Home = () => {
       </div>
 
       {/* =====================================================
-          QUICK ACCESS BAR
-      ===================================================== */}
-
-      <div className="quick-access-wrapper">
-        <div className="quick-access">
-          {/* CAREERS */}
-
-          <Link to="/careers" className="quick-item">
-            <div className="quick-icon blue-icon">
-              <Compass size={22} />
-            </div>
-
-            <div>
-              <h4>Careers</h4>
-
-              <p>Explore Options</p>
-            </div>
-          </Link>
-
-          {/* ROADMAPS */}
-
-          <Link to="/roadmap" className="quick-item">
-            <div className="quick-icon purple-icon">
-              <Map size={22} />
-            </div>
-
-            <div>
-              <h4>Roadmaps</h4>
-
-              <p>Step by Step</p>
-            </div>
-          </Link>
-
-          {/* COLLEGES */}
-
-          <Link to="/colleges" className="quick-item">
-            <div className="quick-icon green-icon">
-              <GraduationCap size={22} />
-            </div>
-
-            <div>
-              <h4>Colleges</h4>
-
-              <p>Find Best Fit</p>
-            </div>
-          </Link>
-
-          {/* EXAMS */}
-
-          <Link to="/exams" className="quick-item">
-            <div className="quick-icon orange-icon">
-              <ClipboardList size={22} />
-            </div>
-
-            <div>
-              <h4>Exams</h4>
-
-              <p>Prepare Better</p>
-            </div>
-          </Link>
-
-          {/* ASSESSMENTS */}
-
-          <Link to="/assessments" className="quick-item">
-            <div className="quick-icon cyan-icon">
-              <Brain size={22} />
-            </div>
-
-            <div>
-              <h4>Assessments</h4>
-
-              <p>Know Yourself</p>
-            </div>
-          </Link>
-
-          {/* AI TOOLS */}
-
-          <Link to="/ai-tools" className="quick-item">
-            <div className="quick-icon pink-icon">
-              <Bot size={22} />
-            </div>
-
-            <div>
-              <h4>AI Tools</h4>
-
-              <p>Smart Guidance</p>
-            </div>
-          </Link>
-
-          {/* RESOURCES */}
-
-          <Link to="/resources" className="quick-item">
-            <div className="quick-icon folder-icon">
-              <FolderOpen size={22} />
-            </div>
-
-            <div>
-              <h4>Resources</h4>
-
-              <p>Learn More</p>
-            </div>
-          </Link>
-        </div>
-      </div>
-
-      {/* =====================================================
           11TH GRADE GROUPS SECTION
       ===================================================== */}
-
       <section
         id="home-eleventh-groups"
         className="home-content-section eleventh-groups-section"
@@ -432,12 +192,9 @@ const Home = () => {
             <span className="section-badge groups-badge">
               START WITH YOUR 11TH GRADE
             </span>
-
             <h2>
-              Explore 11th Grade
-              <span>Groups</span>
+              Explore 11th Grade <span>Groups</span>
             </h2>
-
             <p>
               Choose your group based on your interests and strengths. Each
               group opens up different career opportunities.
@@ -456,9 +213,8 @@ const Home = () => {
       </section>
 
       {/* =====================================================
-          DEPARTMENT & CAREER ROADMAPS
+          COLLEGE DEPARTMENTS & CAREER ROADMAPS SECTION
       ===================================================== */}
-
       <section
         id="home-departments"
         className="home-content-section department-roadmaps-section"
@@ -466,21 +222,16 @@ const Home = () => {
         <div className="home-section-header">
           <div className="home-section-title">
             <span className="section-badge department-badge">
-              FROM 11TH GROUP TO COLLEGE
+              COLLEGE DEPARTMENTS
             </span>
-
             <h2>
-              Department & Career
-              <span>Roadmaps</span>
+              Department & Career <span>Roadmaps</span>
             </h2>
-
             <p>
-              Explore the best college departments for your group and follow a
-              step-by-step roadmap to your dream career.
+              Explore the top college departments, degree courses, and industry
+              career paths.
             </p>
           </div>
-
-          {/* VIEW ALL DEPARTMENTS */}
 
           <Link to="/departments" className="section-view-all">
             View All Roadmaps
@@ -488,12 +239,9 @@ const Home = () => {
           </Link>
         </div>
 
-        {/* =================================================
-            DEPARTMENT CARDS
-        ================================================= */}
-
         <div className="home-page-content">
           <DepartmentRoadmaps
+            embedded={true}
             onViewRoadmap={(department) => {
               navigate(`/departments/${department.slug}`);
             }}
@@ -507,7 +255,6 @@ const Home = () => {
       {/* =====================================================
           COURSE DETAILS & LEARNING PATH
       ===================================================== */}
-
       <section
         id="home-learning-path"
         className="home-content-section learning-path-section"
@@ -515,20 +262,16 @@ const Home = () => {
         <div className="home-section-header">
           <div className="home-section-title">
             <span className="section-badge learning-badge">
-              LEARN 11TH SKILLS
+              LEARN PRACTICAL SKILLS
             </span>
-
             <h2>
-              Course Details &<span>Learning Path</span>
+              Course Details & <span>Learning Path</span>
             </h2>
-
             <p>
               Get detailed fundamentals, real-world examples and handpicked
               YouTube videos for each course.
             </p>
           </div>
-
-          {/* VIEW ALL COURSES */}
 
           <Link to="/education/learning-path" className="section-view-all">
             View All Courses
@@ -537,7 +280,7 @@ const Home = () => {
         </div>
 
         <div className="home-page-content">
-          <CourseLearningPath embedded />
+          <CourseLearningPath embedded={true} />
         </div>
       </section>
     </section>

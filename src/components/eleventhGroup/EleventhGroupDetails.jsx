@@ -1,198 +1,227 @@
 import { useEffect, useState } from "react";
 
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-import { ArrowLeft, RefreshCw, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  BookOpen,
+  Briefcase,
+  GraduationCap,
+  CheckCircle2,
+  Check,
+  RefreshCw,
+  Sparkles,
+  Award
+} from "lucide-react";
 
 import { getEleventhGroupById } from "../../services/eleventhGroupService";
 
 import "./eleventhGroupDetails.css";
 
 const EleventhGroupDetails = () => {
-  // =========================================================
-  // STATE
-  // =========================================================
-
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [group, setGroup] = useState(null);
-
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState("");
 
-  // =========================================================
-  // FETCH GROUP
-  // =========================================================
+  useEffect(() => {
+    let isMounted = true;
 
-  const fetchGroup = async () => {
-    setLoading(true);
-    setError("");
-
-    try {
-      const response = await getEleventhGroupById(id);
-
-      if (response?.success && response?.data) {
-        setGroup(response.data);
-      } else {
-        setError(response?.message || "Failed to load group details.");
+    const fetchGroupData = async () => {
+      try {
+        setLoading(true);
+        setError("");
+        const res = await getEleventhGroupById(id);
+        if (isMounted) {
+          // Supports both response.data and response directly
+          setGroup(res?.data || res);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(
+            err?.response?.data?.message ||
+              err?.message ||
+              "Failed to load group details."
+          );
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
-    } catch (err) {
-      setError(
-        err?.response?.data?.message ||
-          "Unable to connect to the server. Please try again."
-      );
-    } finally {
-      setLoading(false);
+    };
+
+    fetchGroupData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id]);
+
+  const handleBack = () => {
+    if (window.history.length > 2) {
+      navigate(-1);
+    } else {
+      navigate("/");
     }
   };
 
-  useEffect(() => {
-    fetchGroup();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
-
-  // =========================================================
-  // LOADING
-  // =========================================================
-
   if (loading) {
     return (
-      <section className="page">
-        <div className="group-details-loading">
-          <div className="loading-spinner"></div>
-          <p>Loading group details...</p>
-        </div>
-      </section>
+      <div className="eleventh-detail-state">
+        <RefreshCw size={32} className="spin" />
+        <p>Loading 11th Grade Stream Details...</p>
+      </div>
     );
   }
 
-  // =========================================================
-  // ERROR
-  // =========================================================
-
-  if (error) {
+  if (error || !group) {
     return (
-      <section className="page">
-        <div className="group-details-error">
-          <p>{error}</p>
-
-          <button type="button" className="btn-retry" onClick={fetchGroup}>
-            Try Again
-            <RefreshCw size={16} />
-          </button>
-        </div>
-      </section>
+      <div className="eleventh-detail-state error">
+        <h2>Stream Not Found</h2>
+        <p>{error || "Unable to find the requested 11th grade group."}</p>
+        <button type="button" className="btn-back-action" onClick={handleBack}>
+          <ArrowLeft size={16} /> Go Back
+        </button>
+      </div>
     );
   }
 
-  if (!group) {
-    return null;
-  }
-
-  // =========================================================
-  // MAIN
-  // =========================================================
+  // Graceful fallback for field names matching your MongoDB Document
+  const subjectList = group.subjects || group.coreSubjects || [];
+  const careerList = group.careerOptions || group.careerPathways || [];
+  const courseList =
+    group.courseOptions || group.higherStudyDegreeOptions || [];
+  const eligibilityText =
+    group.eligibility ||
+    group.eligibilityCriteria10th ||
+    "Students who have completed 10th standard with required qualifying cut-off marks.";
 
   return (
-    <section className="page group-details-page">
-      <Link to="/eleventh-groups" className="group-details-back">
-        <ArrowLeft size={16} />
-        Back to Groups
-      </Link>
+    <div className="eleventh-detail-page">
+      <div className="eleventh-detail-container">
+        {/* Navigation Back Bar */}
+        <button
+          type="button"
+          className="detail-back-button"
+          onClick={handleBack}
+        >
+          <ArrowLeft size={16} />
+          <span>Back</span>
+        </button>
 
-      {/* =====================================================
-          HEADER
-      ===================================================== */}
+        {/* Hero Banner */}
+        <div className="stream-detail-hero">
+          <div className="stream-hero-badge">
+            <Sparkles size={14} />
+            <span>{group.groupCode || "11TH STREAM"}</span>
+          </div>
 
-      <div className="group-details-header">
-        {group.imageUrl && (
-          <img
-            src={group.imageUrl}
-            alt={group.groupName}
-            className="group-details-image"
-          />
-        )}
-
-        <div>
           <h1>{group.groupName}</h1>
-
-          <p className="group-details-code">Group Code: {group.groupCode}</p>
-
-          {group.description && (
-            <p className="group-details-description">{group.description}</p>
-          )}
+          <p className="stream-hero-desc">{group.description}</p>
         </div>
-      </div>
 
-      {/* =====================================================
-          SUBJECTS
-      ===================================================== */}
+        {/* ================= SECTION 1: CORE SUBJECTS ================= */}
+        <div className="stream-card-section">
+          <div className="section-title-wrap">
+            <div className="section-icon-pill purple">
+              <BookOpen size={18} />
+            </div>
+            <div>
+              <h3>Subjects Taught in 11th & 12th</h3>
+              <p>Core curriculum subjects you will study under this group</p>
+            </div>
+          </div>
 
-      {Array.isArray(group.subjects) && group.subjects.length > 0 && (
-        <div className="group-details-section">
-          <h3>Subjects</h3>
-
-          <div className="group-details-tags">
-            {group.subjects.map((subject, index) => (
-              <span key={index} className="group-details-tag">
-                {subject}
-              </span>
+          <div className="subjects-chips-grid">
+            {subjectList.map((subject, idx) => (
+              <div key={idx} className="subject-chip">
+                <CheckCircle2 size={16} className="check-icon" />
+                <span>{subject}</span>
+              </div>
             ))}
           </div>
         </div>
-      )}
 
-      {/* =====================================================
-          ELIGIBILITY
-      ===================================================== */}
+        {/* ================= SECTION 2: ELIGIBILITY ================= */}
+        <div className="stream-card-section">
+          <div className="section-title-wrap">
+            <div className="section-icon-pill pink">
+              <Award size={18} />
+            </div>
+            <div>
+              <h3>Eligibility Criteria</h3>
+              <p>Minimum requirements after 10th standard board exams</p>
+            </div>
+          </div>
 
-      {group.eligibility && (
-        <div className="group-details-section">
-          <h3>Eligibility</h3>
-
-          <p>{group.eligibility}</p>
+          <div className="eligibility-content-box">
+            <p>{eligibilityText}</p>
+          </div>
         </div>
-      )}
 
-      {/* =====================================================
-          CAREER OPTIONS
-      ===================================================== */}
+        {/* ================= SECTION 3: COURSE & DEGREE OPTIONS ================= */}
+        {courseList.length > 0 && (
+          <div className="stream-card-section">
+            <div className="section-title-wrap">
+              <div className="section-icon-pill green">
+                <GraduationCap size={18} />
+              </div>
+              <div>
+                <h3>College Course & Degree Options</h3>
+                <p>Degrees you are eligible to pursue in higher education</p>
+              </div>
+            </div>
 
-      {Array.isArray(group.careerOptions) && group.careerOptions.length > 0 && (
-        <div className="group-details-section">
-          <h3>Career Options</h3>
+            <div className="options-cards-grid">
+              {courseList.map((course, idx) => (
+                <div key={idx} className="option-pill-card degree">
+                  <div className="option-circle-check">
+                    <Check size={14} />
+                  </div>
+                  <span className="option-name">
+                    {typeof course === "string"
+                      ? course
+                      : course.courseName || course}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-          <ul className="group-details-list">
-            {group.careerOptions.map((career, index) => (
-              <li key={index}>
-                <CheckCircle2 size={16} />
-                {career}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        {/* ================= SECTION 4: CAREER OPTIONS ================= */}
+        {careerList.length > 0 && (
+          <div className="stream-card-section">
+            <div className="section-title-wrap">
+              <div className="section-icon-pill orange">
+                <Briefcase size={18} />
+              </div>
+              <div>
+                <h3>Career Opportunities</h3>
+                <p>Popular industry careers and professional job roles</p>
+              </div>
+            </div>
 
-      {/* =====================================================
-          COURSE OPTIONS
-      ===================================================== */}
-
-      {Array.isArray(group.courseOptions) && group.courseOptions.length > 0 && (
-        <div className="group-details-section">
-          <h3>Course Options</h3>
-
-          <ul className="group-details-list">
-            {group.courseOptions.map((course, index) => (
-              <li key={index}>
-                <CheckCircle2 size={16} />
-                {course}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </section>
+            <div className="options-cards-grid">
+              {careerList.map((career, idx) => (
+                <div key={idx} className="option-pill-card career">
+                  <div className="option-circle-check orange">
+                    <Check size={14} />
+                  </div>
+                  <span className="option-name">
+                    {typeof career === "string"
+                      ? career
+                      : career.careerName || career}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
