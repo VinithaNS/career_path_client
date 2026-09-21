@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // Use localhost for fast responses during development; switch back when deploying:
-export const SERVER_BASE_URL = "http://localhost:5000";
-// export const SERVER_BASE_URL = "https://career-path-asor.onrender.com/api";
+// export const SERVER_BASE_URL = "http://localhost:5000";
+export const SERVER_BASE_URL = "https://career-path-asor.onrender.com";
 
 const api = axios.create({
   baseURL: `${SERVER_BASE_URL}/api`
