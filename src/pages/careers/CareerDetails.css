@@ -1,5 +1,5 @@
 /* =========================================================
-   CAREER DETAILS PAGE LAYOUT
+   CAREER DETAILS & JOB ROLE MODAL STYLES
 ========================================================= */
 .career-details-page {
   width: 100%;
@@ -14,7 +14,6 @@
   margin: 0 auto;
 }
 
-/* Back Button */
 .career-back-btn {
   display: inline-flex;
   align-items: center;
@@ -38,7 +37,6 @@
   transform: translateX(-3px);
 }
 
-/* Hero Section */
 .career-hero-card {
   background: linear-gradient(135deg, #fdf2f8 0%, #fbf5fd 55%, #f3e8ff 100%);
   border: 1px solid #f0dff2;
@@ -91,7 +89,7 @@
   max-width: 820px;
 }
 
-/* 2-Column Grid */
+/* Grid Layout */
 .career-grid-layout {
   display: grid;
   grid-template-columns: 1fr 340px;
@@ -113,7 +111,6 @@
   top: 90px;
 }
 
-/* Panels */
 .detail-panel {
   background: #ffffff;
   border: 1px solid #f0e5f5;
@@ -136,7 +133,6 @@
   color: #64748b;
 }
 
-/* Eligibility & Education */
 .eligibility-highlight {
   background: #fdf2f8;
   border-left: 4px solid #db2777;
@@ -175,7 +171,6 @@
   color: #1e1b4b;
 }
 
-/* Skills */
 .skills-pill-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -193,7 +188,6 @@
   color: #9333ea;
 }
 
-/* Opportunities & Job Roles */
 .section-pre-tag {
   display: inline-block;
   font-size: 11px;
@@ -263,7 +257,7 @@
   color: #db2777;
 }
 
-/* Right Sidebar Cards */
+/* Sidebar Cards */
 .side-card {
   background: #ffffff;
   border: 1px solid #f0e5f5;
@@ -328,7 +322,7 @@
   text-decoration: underline;
 }
 
-/* Modal Styling */
+/* Modal Dialog */
 .role-modal-backdrop {
   position: fixed;
   inset: 0;

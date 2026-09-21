@@ -39,15 +39,13 @@ import ProtectedRoute from "./ProtectedRoute";
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* ================= PUBLIC CORE ================= */}
       <Route path="/" element={<Home />} />
 
-      {/* ================= AUTHENTICATION ================= */}
+      {/* Auth */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/complete-profile" element={<CompleteProfile />} />
 
-      {/* ================= STUDENT DASHBOARD ================= */}
       <Route
         path="/profile"
         element={
@@ -57,42 +55,41 @@ const AppRoutes = () => {
         }
       />
 
-      {/* ================= POST-10TH: 11TH GRADE STREAMS ================= */}
+      {/* Post-10th Streams */}
       <Route path="/eleventh-groups" element={<EleventhGroupsPage />} />
       <Route path="/eleventh-groups/:id" element={<EleventhGroupDetails />} />
 
-      {/* ================= POST-10TH: POLYTECHNIC DIPLOMAS ================= */}
+      {/* Post-10th Vocational Diplomas */}
       <Route path="/diploma-courses" element={<DiplomaCourse />} />
       <Route path="/diploma-courses/:id" element={<DiplomaCourseDetails />} />
 
-      {/* ================= DEGREE COURSES & LEARNING PATH ================= */}
+      {/* Degree Courses */}
       <Route path="/education" element={<Education />} />
-      {/* Static route placed before dynamic /:id to prevent routing collisions */}
       <Route path="/education/learning-path" element={<CourseLearningPath />} />
       <Route path="/education/:id" element={<CourseDetails />} />
 
-      {/* ================= DEPARTMENTS ================= */}
+      {/* Departments */}
       <Route path="/departments" element={<DepartmentsPage />} />
       <Route path="/departments/:slug" element={<DepartmentDetails />} />
 
-      {/* ================= CAREERS & ROADMAPS ================= */}
+      {/* Careers & Roadmaps */}
       <Route path="/careers" element={<Careers />} />
       <Route path="/careers/:id" element={<CareerDetails />} />
       <Route path="/roadmap" element={<Roadmap />} />
       <Route path="/roadmap/:id" element={<RoadmapDetails />} />
 
-      {/* ================= COLLEGES ================= */}
+      {/* Colleges */}
       <Route path="/colleges" element={<Colleges />} />
       <Route path="/colleges/:id" element={<CollegeDetails />} />
 
-      {/* ================= EXAMS ================= */}
+      {/* Exams */}
       <Route path="/exams" element={<Exams />} />
       <Route path="/exams/:id" element={<ExamDetails />} />
 
-      {/* ================= RESOURCES ================= */}
+      {/* Resources */}
       <Route path="/resources" element={<Resources />} />
 
-      {/* ================= AI COUNSELING TOOLS ================= */}
+      {/* AI Tools */}
       <Route
         path="/ai-tools"
         element={
@@ -134,7 +131,7 @@ const AppRoutes = () => {
         }
       />
 
-      {/* ================= ASSESSMENTS ENGINE ================= */}
+      {/* Assessments */}
       <Route path="/assessments" element={<Assessments />} />
       <Route path="/assessments/:id" element={<AssessmentDetails />} />
       <Route
@@ -154,7 +151,6 @@ const AppRoutes = () => {
         }
       />
 
-      {/* ================= 404 NOT FOUND ================= */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

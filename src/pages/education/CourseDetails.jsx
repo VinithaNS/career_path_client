@@ -49,25 +49,22 @@ const CourseDetails = () => {
         setLoading(true);
         setError("");
         const res = await getCourseById(id);
-        if (isMounted) {
-          setCourse(res?.data || res);
-        }
+        if (isMounted) setCourse(res?.data || res);
       } catch (err) {
         if (isMounted) {
           setError(
             err?.response?.data?.message ||
               err?.message ||
-              "Failed to load degree course"
+              "Failed to load course details"
           );
         }
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        if (isMounted) setLoading(false);
       }
     };
 
     fetchCourse();
+
     return () => {
       isMounted = false;
     };
@@ -140,7 +137,6 @@ const CourseDetails = () => {
   return (
     <div className="course-details-page">
       <div className="course-details-container">
-        {/* Back Navigation */}
         <button
           type="button"
           className="details-back-btn"
@@ -150,50 +146,44 @@ const CourseDetails = () => {
           <span>Back to Education</span>
         </button>
 
-        {/* Hero Card */}
         <div className="course-hero-banner">
           <div className="course-badge-row">
             <span className="course-type-pill">
               {course.degreeType || "UG DEGREE"}
             </span>
             <span className="course-code-pill">
-              {course.courseCode || "BSCCS"}
+              {course.courseCode || "DEGREE"}
             </span>
           </div>
           <h1>{course.courseName}</h1>
           <p>{course.shortDescription || course.description}</p>
         </div>
 
-        {/* Main 2-Column Grid */}
         <div className="course-details-grid">
-          {/* Left Column: Academic & Syllabus Details */}
           <div className="course-main-column">
-            {/* About */}
             <div className="details-card">
               <h3>About the Course</h3>
               <p>{course.about || course.description}</p>
             </div>
 
-            {/* Eligibility & Admission */}
             <div className="details-card">
-              <h3>Eligibility & Admission</h3>
+              <h3>Eligibility &amp; Admission</h3>
               <div className="eligibility-highlight-box">
                 <strong>Prerequisite:</strong>{" "}
                 {course.eligibility ||
-                  "12th standard passed with Mathematics or Computer Science."}
+                  "12th standard pass with Mathematics or Science."}
               </div>
               <h4 className="details-sub-heading">Admission Process</h4>
               <p className="card-plain-text">
                 {course.admissionProcess ||
-                  "Admission based on qualifying examination cut-off marks and applicable university counseling."}
+                  "Admission based on qualifying examination cut-off marks and university counseling."}
               </p>
             </div>
 
-            {/* Core Subjects */}
             <div className="details-card">
               <div className="card-header-icon-wrap">
                 <BookOpen size={20} color="#9333ea" />
-                <h3>Core Subjects & Curriculum</h3>
+                <h3>Core Subjects &amp; Curriculum</h3>
               </div>
               <div className="subjects-tags-grid">
                 {subjectsList.map((sub, i) => (
@@ -207,7 +197,6 @@ const CourseDetails = () => {
               </div>
             </div>
 
-            {/* Skills */}
             <div className="details-card">
               <h3>Skills You Can Develop</h3>
               <div className="skills-chip-row">
@@ -219,12 +208,11 @@ const CourseDetails = () => {
               </div>
             </div>
 
-            {/* Career Opportunities / Job Roles */}
             <div className="details-card">
               <div className="card-header-icon-wrap">
                 <Briefcase size={20} color="#db2777" />
                 <div>
-                  <h3>Job Roles & Opportunities</h3>
+                  <h3>Job Roles &amp; Opportunities</h3>
                   <p className="card-sub-hint">
                     Click any role to explore its roadmap
                   </p>
@@ -251,9 +239,7 @@ const CourseDetails = () => {
             </div>
           </div>
 
-          {/* Right Sidebar: Program Overview & Progression */}
           <div className="course-sidebar-column">
-            {/* Quick Specs */}
             <div className="side-metric-card side-highlight-card">
               <span className="metric-label">Course Overview</span>
               <div className="side-spec-row">
@@ -277,7 +263,6 @@ const CourseDetails = () => {
               </div>
             </div>
 
-            {/* Higher Studies Scope */}
             <div className="side-metric-card">
               <span className="metric-label">Higher Studies Progression</span>
               <p className="card-plain-text">

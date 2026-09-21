@@ -1,5 +1,5 @@
 /* =========================================================
-   ROADMAP DETAILS LAYOUT & ACCORDION DRAWER
+   ROADMAP DETAILS & ACCORDION TIMELINE STYLES
 ========================================================= */
 .roadmap-details-page {
   width: 100%;
@@ -14,7 +14,6 @@
   margin: 0 auto;
 }
 
-/* Back Button */
 .roadmap-back-btn {
   display: inline-flex;
   align-items: center;
@@ -37,7 +36,6 @@
   transform: translateX(-3px);
 }
 
-/* Hero Section */
 .roadmap-hero-card {
   background: linear-gradient(135deg, #fdf2f8 0%, #fbf5fd 55%, #f3e8ff 100%);
   border: 1px solid #f0dff2;
@@ -110,12 +108,11 @@
   top: 90px;
 }
 
-/* Step Wrapper */
 .roadmap-step-wrapper {
   position: relative;
 }
 
-/* Step Row Card */
+/* Step Card Header */
 .roadmap-step-row {
   display: flex;
   align-items: center;
@@ -199,7 +196,7 @@
   flex-shrink: 0;
 }
 
-/* Expanded Drawer Panel */
+/* Expanded Content Drawer */
 .step-expanded-drawer {
   background: #ffffff;
   border: 1.5px solid #f0dff2;
@@ -297,7 +294,7 @@
   margin: 0;
 }
 
-/* Mini Project Card */
+/* Recommended Project */
 .drawer-project-card {
   background: #ecfdf5;
   border: 1px solid #a7f3d0;
@@ -322,7 +319,7 @@
   line-height: 1.5;
 }
 
-/* Sidebar Cards */
+/* Right Sidebar */
 .roadmap-sidebar-card {
   display: flex;
   align-items: flex-start;

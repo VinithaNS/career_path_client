@@ -22,9 +22,7 @@ const DiplomaCourseDetails = () => {
         setLoading(true);
         setError("");
         const res = await getDiplomaById(id);
-        if (isMounted) {
-          setDiploma(res?.data || res);
-        }
+        if (isMounted) setDiploma(res?.data || res);
       } catch (err) {
         if (isMounted) {
           setError(
@@ -34,9 +32,7 @@ const DiplomaCourseDetails = () => {
           );
         }
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        if (isMounted) setLoading(false);
       }
     };
 
@@ -50,7 +46,6 @@ const DiplomaCourseDetails = () => {
   if (loading) {
     return (
       <div className="course-details-state">
-        {/* Pure CSS Spinner - No External Icon Needed */}
         <div className="pure-css-loader"></div>
         <p>Loading Polytechnic Course Details...</p>
       </div>
@@ -100,13 +95,11 @@ const DiplomaCourseDetails = () => {
 
         <div className="course-details-grid">
           <div className="course-main-column">
-            {/* Overview */}
             <div className="details-card">
               <h3>About This Program</h3>
               <p>{diploma.description || diploma.shortDescription}</p>
             </div>
 
-            {/* Direct Lateral Entry */}
             <div className="details-card">
               <div className="card-header-icon-wrap">
                 <Award size={20} color="#059669" />
@@ -126,7 +119,6 @@ const DiplomaCourseDetails = () => {
               </div>
             </div>
 
-            {/* Skills */}
             {diploma.skills && diploma.skills.length > 0 && (
               <div className="details-card">
                 <h3>Technical Skills You Will Develop</h3>
@@ -140,7 +132,6 @@ const DiplomaCourseDetails = () => {
               </div>
             )}
 
-            {/* Direct Job Roles */}
             {diploma.directJobRoles && diploma.directJobRoles.length > 0 && (
               <div className="details-card">
                 <h3>Immediate Career Opportunities</h3>
@@ -156,7 +147,6 @@ const DiplomaCourseDetails = () => {
             )}
           </div>
 
-          {/* Sidebar */}
           <div className="course-sidebar-column">
             <div className="side-metric-card">
               <span className="metric-label">Course Duration</span>

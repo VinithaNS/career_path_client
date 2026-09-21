@@ -5,16 +5,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   BookOpen,
-  Briefcase,
-  GraduationCap,
   CheckCircle2,
-  Check,
-  RefreshCw,
-  Sparkles,
-  Award
+  GraduationCap,
+  Briefcase,
+  ArrowRight
 } from "lucide-react";
 
+import { getCourseByName } from "../../services/educationService";
 import { getEleventhGroupById } from "../../services/eleventhGroupService";
+import { getRoadmapByTitle } from "../../services/roadmapService";
 
 import "./eleventhGroupDetails.css";
 
@@ -27,50 +26,62 @@ const EleventhGroupDetails = () => {
 
   useEffect(() => {
     let isMounted = true;
-
-    const fetchGroupData = async () => {
+    const fetchDetails = async () => {
       try {
         setLoading(true);
         setError("");
         const res = await getEleventhGroupById(id);
-        if (isMounted) {
-          // Supports both response.data and response directly
-          setGroup(res?.data || res);
-        }
+        if (isMounted) setGroup(res?.data || res);
       } catch (err) {
         if (isMounted) {
           setError(
             err?.response?.data?.message ||
               err?.message ||
-              "Failed to load group details."
+              "Failed to load stream details"
           );
         }
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        if (isMounted) setLoading(false);
       }
     };
 
-    fetchGroupData();
+    fetchDetails();
 
     return () => {
       isMounted = false;
     };
   }, [id]);
 
-  const handleBack = () => {
-    if (window.history.length > 2) {
-      navigate(-1);
-    } else {
-      navigate("/");
+  const handleCourseClick = async (courseName) => {
+    try {
+      const res = await getCourseByName(courseName);
+      if (res?.data?._id) {
+        navigate(`/education/${res.data._id}`);
+      } else {
+        navigate("/education");
+      }
+    } catch {
+      navigate("/education");
+    }
+  };
+
+  const handleCareerClick = async (careerTitle) => {
+    try {
+      const res = await getRoadmapByTitle(careerTitle);
+      if (res?.data?._id) {
+        navigate(`/roadmap/${res.data._id}`);
+      } else {
+        navigate("/roadmap");
+      }
+    } catch {
+      navigate("/roadmap");
     }
   };
 
   if (loading) {
     return (
-      <div className="eleventh-detail-state">
-        <RefreshCw size={32} className="spin" />
+      <div className="stream-loading-state">
+        <div className="pure-css-loader"></div>
         <p>Loading 11th Grade Stream Details...</p>
       </div>
     );
@@ -78,148 +89,125 @@ const EleventhGroupDetails = () => {
 
   if (error || !group) {
     return (
-      <div className="eleventh-detail-state error">
+      <div className="stream-error-state">
         <h2>Stream Not Found</h2>
-        <p>{error || "Unable to find the requested 11th grade group."}</p>
-        <button type="button" className="btn-back-action" onClick={handleBack}>
-          <ArrowLeft size={16} /> Go Back
+        <p>{error}</p>
+        <button type="button" onClick={() => navigate(-1)}>
+          Go Back
         </button>
       </div>
     );
   }
 
-  // Graceful fallback for field names matching your MongoDB Document
-  const subjectList = group.subjects || group.coreSubjects || [];
-  const careerList = group.careerOptions || group.careerPathways || [];
-  const courseList =
-    group.courseOptions || group.higherStudyDegreeOptions || [];
-  const eligibilityText =
-    group.eligibility ||
-    group.eligibilityCriteria10th ||
-    "Students who have completed 10th standard with required qualifying cut-off marks.";
-
   return (
-    <div className="eleventh-detail-page">
-      <div className="eleventh-detail-container">
-        {/* Navigation Back Bar */}
+    <div className="eleventh-details-page">
+      <div className="eleventh-details-container">
         <button
           type="button"
-          className="detail-back-button"
-          onClick={handleBack}
+          className="details-back-btn"
+          onClick={() => navigate(-1)}
         >
           <ArrowLeft size={16} />
-          <span>Back</span>
+          <span>Back to Streams</span>
         </button>
 
-        {/* Hero Banner */}
-        <div className="stream-detail-hero">
-          <div className="stream-hero-badge">
-            <Sparkles size={14} />
-            <span>{group.groupCode || "11TH STREAM"}</span>
+        <div className="stream-hero-card">
+          <div className="stream-badge-row">
+            <span className="stream-code-pill">
+              {group.groupCode || "STREAM"}
+            </span>
+            <span className="stream-category-pill">
+              {group.streamCategory || "Academic"}
+            </span>
           </div>
-
           <h1>{group.groupName}</h1>
-          <p className="stream-hero-desc">{group.description}</p>
+          <p>{group.description}</p>
         </div>
 
-        {/* ================= SECTION 1: CORE SUBJECTS ================= */}
-        <div className="stream-card-section">
-          <div className="section-title-wrap">
-            <div className="section-icon-pill purple">
-              <BookOpen size={18} />
+        <div className="stream-content-grid">
+          {/* Core Subjects */}
+          <div className="stream-panel-card">
+            <div className="panel-title-wrap">
+              <BookOpen size={20} color="#9333ea" />
+              <h3>Subjects Taught in 11th &amp; 12th</h3>
             </div>
-            <div>
-              <h3>Subjects Taught in 11th & 12th</h3>
-              <p>Core curriculum subjects you will study under this group</p>
-            </div>
-          </div>
-
-          <div className="subjects-chips-grid">
-            {subjectList.map((subject, idx) => (
-              <div key={idx} className="subject-chip">
-                <CheckCircle2 size={16} className="check-icon" />
-                <span>{subject}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ================= SECTION 2: ELIGIBILITY ================= */}
-        <div className="stream-card-section">
-          <div className="section-title-wrap">
-            <div className="section-icon-pill pink">
-              <Award size={18} />
-            </div>
-            <div>
-              <h3>Eligibility Criteria</h3>
-              <p>Minimum requirements after 10th standard board exams</p>
+            <p className="panel-sub-hint">
+              Core curriculum subjects studied under this group
+            </p>
+            <div className="subject-pills-wrap">
+              {group.coreSubjects?.map((sub, i) => (
+                <span key={i} className="subject-badge">
+                  {sub}
+                </span>
+              ))}
             </div>
           </div>
 
-          <div className="eligibility-content-box">
-            <p>{eligibilityText}</p>
+          {/* Eligibility */}
+          <div className="stream-panel-card">
+            <h3>Eligibility Criteria</h3>
+            <div className="eligibility-highlight-panel">
+              {group.eligibility ||
+                "Pass in 10th standard with qualifying marks in core subjects."}
+            </div>
           </div>
-        </div>
 
-        {/* ================= SECTION 3: COURSE & DEGREE OPTIONS ================= */}
-        {courseList.length > 0 && (
-          <div className="stream-card-section">
-            <div className="section-title-wrap">
-              <div className="section-icon-pill green">
-                <GraduationCap size={18} />
-              </div>
+          {/* College Courses */}
+          <div className="stream-panel-card">
+            <div className="panel-title-wrap">
+              <GraduationCap size={20} color="#059669" />
               <div>
-                <h3>College Course & Degree Options</h3>
-                <p>Degrees you are eligible to pursue in higher education</p>
+                <h3>College Course &amp; Degree Options</h3>
+                <p className="panel-sub-hint">
+                  Click any degree program to inspect syllabus and requirements
+                </p>
               </div>
             </div>
-
-            <div className="options-cards-grid">
-              {courseList.map((course, idx) => (
-                <div key={idx} className="option-pill-card degree">
-                  <div className="option-circle-check">
-                    <Check size={14} />
+            <div className="interactive-options-grid">
+              {group.courseOptions?.map((crs, i) => (
+                <div
+                  key={i}
+                  className="interactive-choice-row"
+                  onClick={() => handleCourseClick(crs)}
+                >
+                  <div className="row-left">
+                    <CheckCircle2 size={16} color="#059669" />
+                    <span>{crs}</span>
                   </div>
-                  <span className="option-name">
-                    {typeof course === "string"
-                      ? course
-                      : course.courseName || course}
-                  </span>
+                  <ArrowRight size={15} className="row-arrow" />
                 </div>
               ))}
             </div>
           </div>
-        )}
 
-        {/* ================= SECTION 4: CAREER OPTIONS ================= */}
-        {careerList.length > 0 && (
-          <div className="stream-card-section">
-            <div className="section-title-wrap">
-              <div className="section-icon-pill orange">
-                <Briefcase size={18} />
-              </div>
+          {/* Career Opportunities */}
+          <div className="stream-panel-card">
+            <div className="panel-title-wrap">
+              <Briefcase size={20} color="#ea580c" />
               <div>
                 <h3>Career Opportunities</h3>
-                <p>Popular industry careers and professional job roles</p>
+                <p className="panel-sub-hint">
+                  Click any career role to view its milestone roadmap
+                </p>
               </div>
             </div>
-
-            <div className="options-cards-grid">
-              {careerList.map((career, idx) => (
-                <div key={idx} className="option-pill-card career">
-                  <div className="option-circle-check orange">
-                    <Check size={14} />
+            <div className="interactive-options-grid">
+              {group.careerOptions?.map((car, i) => (
+                <div
+                  key={i}
+                  className="interactive-choice-row"
+                  onClick={() => handleCareerClick(car)}
+                >
+                  <div className="row-left">
+                    <CheckCircle2 size={16} color="#ea580c" />
+                    <span>{car}</span>
                   </div>
-                  <span className="option-name">
-                    {typeof career === "string"
-                      ? career
-                      : career.careerName || career}
-                  </span>
+                  <ArrowRight size={15} className="row-arrow" />
                 </div>
               ))}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
