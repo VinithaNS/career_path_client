@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000/api/departments";
+const API_BASE_URL = "https://career-path-asor.onrender.com/api/departments";
 
 async function handleResponse(res) {
   const json = await res.json().catch(() => null);
